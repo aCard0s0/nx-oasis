@@ -16,12 +16,12 @@ export const BinanceSubRequest: BinanceSubscribeRequest = {
 export const BinanceUnsubRequest: BinanceUnsubscribeRequest = {
   method: "UNSUBSCRIBE",
   params: [
-    "btcusdt@aggTrade",
+    "etheur@aggTrade",
   ],
   id: 1
 }
 
-export const KrakenSubRequestTrade: KrakenSubscribeRequest = {
+export const KrakenSubTradeRequest: KrakenSubscribeRequest = {
   event: "subscribe",
   pair: [
     "ETH/EUR",
@@ -31,7 +31,7 @@ export const KrakenSubRequestTrade: KrakenSubscribeRequest = {
   }
 }
 
-export const KrakenSubRequestTicker: KrakenSubscribeRequest = {
+export const KrakenSubTickerRequest: KrakenSubscribeRequest = {
   event: "subscribe",
   pair: [
     "ETH/EUR",
@@ -41,7 +41,7 @@ export const KrakenSubRequestTicker: KrakenSubscribeRequest = {
   }
 }
 
-export const KrakenSubRequestOHCL: KrakenSubscribeRequest = {
+export const KrakenSubOHCLRequest: KrakenSubscribeRequest = {
   event: "subscribe",
   pair: [
     "ETH/EUR",
@@ -51,7 +51,7 @@ export const KrakenSubRequestOHCL: KrakenSubscribeRequest = {
   }
 }
 
-export const KrakenUnsubRequest: KrakenUnsubscribeRequest = {
+export const KrakenUnsubTradeRequest: KrakenUnsubscribeRequest = {
   event: "unsubscribe",
   pair: [
     "BTC/EUR",
