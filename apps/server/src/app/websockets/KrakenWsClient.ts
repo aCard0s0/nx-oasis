@@ -1,6 +1,6 @@
 import {WsClientHandler} from "./WsClientHandler";
 import {RawData} from "ws";
-import {KrakenMessages, KrakenOHLC, KrakenSubscribeRequest, KrakenTicker} from "@oasis/share-types";
+import {ExchangeHouses, KrakenOHLC, KrakenSubscribeRequest, KrakenTicker, Pairs} from "@oasis/share-types";
 
 export class KrakenWsClient extends WsClientHandler {
 
@@ -14,14 +14,16 @@ export class KrakenWsClient extends WsClientHandler {
     const payload = JSON.parse(`${data}`)
 
     switch (payload[2]) {
-      case "ticker": {
-        const ticker: KrakenTicker = JSON.parse(`${data}`)
+      case "trade": {
+        console.log(`Kraken Trade; data=${data}`)
+        const trade: any = JSON.parse(`${data}`)
+        this.prices.add(Pairs.ETH_EUR, ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
+
         break;
       }
-      case "trade": {
-        console.log(`Kraken Socket Message; data=${data}`)
-        const trade: any = JSON.parse(`${data}`)
-        console.log(trade[1][0][0])
+
+      case "ticker": {
+        const ticker: KrakenTicker = JSON.parse(`${data}`)
         break;
       }
       case "ohlc": {

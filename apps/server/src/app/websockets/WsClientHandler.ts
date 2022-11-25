@@ -2,10 +2,12 @@ import {WebSocket, RawData} from "ws";
 import {
   ExchangeSockets, SubscribeRequest, UnsubscribeRequest
 } from "@oasis/share-types";
+import {PriceStorage} from "../PriceStorage";
 
 export abstract class WsClientHandler {
   private ws: WebSocket
   protected request: SubscribeRequest
+  protected prices: PriceStorage = PriceStorage.getInstance()
 
   initialize(websocketUrl: ExchangeSockets) {
     this.ws = new WebSocket(websocketUrl)
