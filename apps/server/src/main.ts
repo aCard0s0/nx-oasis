@@ -1,18 +1,15 @@
-import {ExchangeSockets} from "@oasis/share-types";
-import {ExchangeHandler} from "./app/exchanges/ExchangeHandler";
-import {BinanceSubRequest, KrakenSubTradeRequest} from "./app/configs/ExchangeRequests";
-import {KrakenWsClient} from "./app/websockets/KrakenWsClient";
-import {BinanceWsClient} from "./app/websockets/BinanceWsClient";
-import {PriceCheckerCronJob} from "./app/cronjob/PriceCheckerCronJob";
+import {Express, Request, Response} from "express"
+import express = require("express");
+import {startWebSocketClients} from "./app/websockets/WsClient";
 
-function main() {
-  const exchanges = new ExchangeHandler()
-  exchanges.add(ExchangeSockets.Binance, new BinanceWsClient(BinanceSubRequest))
-  //configs.remove(ExchangeHouses.Binance, BinanceUnsubRequest)
-  exchanges.add(ExchangeSockets.Kraken, new KrakenWsClient(KrakenSubTradeRequest))
-  //exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest2))
-  //exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest3))
-  PriceCheckerCronJob.start()
-}
+const app: Express = express();
+const port = 8080;
 
-main()
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
+});
+
+app.listen(port, () => {
+  startWebSocketClients()
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+});
