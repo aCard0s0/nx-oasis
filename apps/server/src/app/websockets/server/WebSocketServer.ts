@@ -1,15 +1,5 @@
 import {WebSocketServerHandler} from "./WebSocketServerHandler";
-import {WebSocket, ServerOptions, RawData} from "ws";
-import {IncomingMessage} from "http";
-import {WssMessage} from "@oasis/share-types";
-
-/*
-export const startWebSocketServer = () => {
-  const options: ServerOptions = {port: 4040}
-  const handler = new WsServerHandler()
-  handler.initialize(options)
-}
-*/
+import {WebSocket} from "ws";
 
 export default async (expressServer) => {
   const websocketServer = new WebSocket.Server({

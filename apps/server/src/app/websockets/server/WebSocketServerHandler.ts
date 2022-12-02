@@ -1,7 +1,7 @@
 import {RawData, ServerOptions, WebSocketServer, WebSocket} from "ws";
 import {IncomingMessage} from "http";
-import {WssMessage} from "@oasis/share-types";
 import {MarketService} from "../../core/service/MarketService";
+import {WebSocketServerMessages} from "@oasis/share-types";
 
 export class WebSocketServerHandler {
   private wsServer: WebSocketServer
@@ -33,7 +33,7 @@ export class WebSocketServerHandler {
   }
 
   onSocketMessage(socket: WebSocket, data: RawData) {
-    const payload: WssMessage = JSON.parse(`${data}`)
+    const payload: WebSocketServerMessages = JSON.parse(`${data}`)
     console.log("Received: ", payload)
 
     switch (payload.event) {
