@@ -17,7 +17,7 @@ export class KrakenWsClient extends WsClientHandler {
       case "trade": {
         console.log(`Kraken Trade; data=${data}`)
         const trade: any = JSON.parse(`${data}`)
-        this.prices.add(Pairs.ETH_EUR, ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
+        this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
 
         break;
       }

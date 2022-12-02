@@ -1,8 +1,8 @@
 import {CronJob} from "cron";
-import {PriceStorage} from "../PriceStorage";
+import {MarketStorage} from "../core/MarketStorage";
 
 export const PriceCheckerCronJob  = new CronJob('*/20 * * * * *', () => {
-  console.log('Every 10 second:', new Date());
-  const prices = PriceStorage.getInstance()
+  console.log('Every 20 second:', new Date());
+  const prices = MarketStorage.getInstance()
   prices.tmp_print()
 });

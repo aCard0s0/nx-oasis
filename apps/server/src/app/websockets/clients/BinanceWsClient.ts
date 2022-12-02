@@ -25,7 +25,7 @@ export class BinanceWsClient extends WsClientHandler {
       case "aggTrade": {
         const aggTrade: AggregateTrade = JSON.parse(`${data}`)
         console.log(`Binance Aggregate Trade; data=${data}`)
-        this.prices.add(Pairs.ETH_EUR, ExchangeHouses.Binance, parseFloat(aggTrade.p))
+        this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Binance, parseFloat(aggTrade.p))
         break;
       }
       case "trade": {
