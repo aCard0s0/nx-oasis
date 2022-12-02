@@ -1,6 +1,7 @@
 import {WsClientHandler} from "./WsClientHandler";
 import {RawData} from "ws";
 import {ExchangeHouses, KrakenOHLC, KrakenSubscribeRequest, KrakenTicker, Pairs} from "@oasis/share-types";
+import logger from "../../configs/Logger";
 
 export class KrakenWsClient extends WsClientHandler {
 
@@ -10,18 +11,16 @@ export class KrakenWsClient extends WsClientHandler {
   }
 
   onSocketMessage(data: RawData) {
-    //console.log(`Kraken Socket Message; data=${data}`)
+    logger.debug(`[KrakenWsClient] operation=onSocketMessage; data=${data}`)
     const payload = JSON.parse(`${data}`)
+    if (payload.event == 'heartbeat') return;
 
     switch (payload[2]) {
       case "trade": {
-        console.log(`Kraken Trade; data=${data}`)
         const trade: any = JSON.parse(`${data}`)
         this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
-
         break;
       }
-
       case "ticker": {
         const ticker: KrakenTicker = JSON.parse(`${data}`)
         break;
@@ -30,7 +29,8 @@ export class KrakenWsClient extends WsClientHandler {
         const ohlc: KrakenOHLC = JSON.parse(`${data}`)
         break;
       }
-      default: //console.log(`Kraken message ignore; message=${data}`)
+      default:
+        logger.warn(`[KrakenWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }
 }

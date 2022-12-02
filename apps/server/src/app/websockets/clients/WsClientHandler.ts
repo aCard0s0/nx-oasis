@@ -3,6 +3,7 @@ import {
   ExchangeSockets, SubscribeRequest, UnsubscribeRequest
 } from "@oasis/share-types";
 import {MarketStorage} from "../../core/MarketStorage";
+import logger from "../../configs/Logger";
 
 export abstract class WsClientHandler {
   private ws: WebSocket
@@ -18,30 +19,30 @@ export abstract class WsClientHandler {
   }
 
   subscribe(request: SubscribeRequest) {
-    console.log(`Subscribe request: ${JSON.stringify(request)}`)
+    logger.info(`[WsClientHandler] operation=subscribe; request=${request}`)
     this.ws.send(JSON.stringify(request))
   }
 
   unsubscribe(request: UnsubscribeRequest) {
-    console.log(`Unsubscribe request: ${JSON.stringify(request)}`)
+    logger.info(`[WsClientHandler] operation=unsubscribe; request=${request}`)
     this.ws.send(JSON.stringify(request))
   }
 
   private onSocketOpen() {
-    console.log('Socket open connection')
+    logger.debug(`[WsClientHandler] operation=onSocketOpen`)
     this.subscribe(this.request)
   }
 
   protected onSocketMessage(data:RawData) {
-    console.log(`Socket message, data=${data}`)
+    logger.debug(`[WsClientHandler] operation=onSocketMessage; data=${data}`)
   }
 
   private onSocketError(error: Error) {
-    console.log(`Socket error, name=${error.name}, message=${error.message}`)
+    logger.debug(`[WsClientHandler] operation=onSocketError; name=${error.name}; message=${error.message}`)
   }
 
   private onSocketClose(code: number) {
-    console.log(`Socket close, code=${code}`)
+    logger.debug(`[WsClientHandler] operation=onSocketClose; code=${code}`)
   }
 
 }

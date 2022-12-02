@@ -9,6 +9,7 @@ import {
   MiniTicker,
   Pairs,
 } from "@oasis/share-types";
+import logger from "../../configs/Logger";
 
 export class BinanceWsClient extends WsClientHandler {
 
@@ -18,28 +19,27 @@ export class BinanceWsClient extends WsClientHandler {
   }
 
   onSocketMessage(data: RawData) {
-    //console.log(`Binance Socket Message; data=${data}`)
+    logger.debug(`[BinanceWsClient] operation=onSocketMessage; data=${data}`)
 
     const payload: BinanceMessages = JSON.parse(`${data}`)
     switch (payload.e) {
       case "aggTrade": {
         const aggTrade: AggregateTrade = JSON.parse(`${data}`)
-        console.log(`Binance Aggregate Trade; data=${data}`)
         this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Binance, parseFloat(aggTrade.p))
         break;
       }
       case "trade": {
         const trade: BinanceTrade = JSON.parse(`${data}`)
-        console.log(`Binance Trade; data=${data}`)
         console.log(trade.p)
         break;
       }
       case "24hrMiniTicker": {
         const ticker: MiniTicker = JSON.parse(`${data}`)
-        console.log(`Binance MiniTicker; data=${data}`)
         console.log(ticker.c)
         break;
       }
+      default :
+        logger.warn(`[BinanceWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }
 

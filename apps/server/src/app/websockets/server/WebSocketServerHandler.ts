@@ -1,7 +1,8 @@
-import {RawData, ServerOptions, WebSocketServer, WebSocket} from "ws";
+import {RawData, WebSocketServer, WebSocket} from "ws";
 import {IncomingMessage} from "http";
 import {MarketService} from "../../core/service/MarketService";
 import {WebSocketServerMessages} from "@oasis/share-types";
+import logger from "../../configs/Logger";
 
 export class WebSocketServerHandler {
   private wsServer: WebSocketServer
@@ -13,19 +14,20 @@ export class WebSocketServerHandler {
   initialize() {
     this.marketService = MarketService.getInstance()
 
-    this.wsServer.on("listening", () => console.log(`Server listening on port`))
+    this.wsServer.on("listening", () => this.onSocketListening())
     this.wsServer.on('connection', (socket, request) => this.onSocketConnected(socket, request))
   }
 
   onSocketUpgrading(request, socket, head) {
-    console.log("Socket server handling upgrade")
     this.wsServer.handleUpgrade(request, socket, head, (websocket) => {
       this.wsServer.emit("connection", websocket, request);
     })
   }
-
+  onSocketListening() {
+    logger.info(`[WebSocketServerHandler] operation=onSocketListening`)
+  }
   onSocketConnected(socket: WebSocket, request: IncomingMessage) {
-    console.log("New websocket connection")
+    logger.info(`[WebSocketServerHandler] operation=onSocketConnected; socket=${socket}; request=${request}`)
     this.marketService.addSocketChannel(socket, request)
 
     socket.on('message', (data) => {this.onSocketMessage(socket, data)})
@@ -33,8 +35,8 @@ export class WebSocketServerHandler {
   }
 
   onSocketMessage(socket: WebSocket, data: RawData) {
+    logger.info(`[WebSocketServerHandler] operation=onSocketMessage; data=${data}`)
     const payload: WebSocketServerMessages = JSON.parse(`${data}`)
-    console.log("Received: ", payload)
 
     switch (payload.event) {
       case "systemNotice": {
@@ -44,6 +46,6 @@ export class WebSocketServerHandler {
   }
 
   onSocketClosed(socket: WebSocket, code: number, reason: Buffer) {
-    console.log(`Client has disconnected; code=${code}, reason=${reason}`)
+    logger.info(`[WebSocketServerHandler] operation=onSocketClosed; code=${code}, reason=${reason}`)
   }
 }

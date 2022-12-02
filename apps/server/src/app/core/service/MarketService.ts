@@ -1,6 +1,7 @@
 import {Market, MarketFeed, Trade} from "@oasis/share-types";
 import {IncomingMessage} from "http";
 import {WebSocket} from "ws";
+import logger from "../../configs/Logger";
 
 export class MarketService {
   private static instance: MarketService
@@ -15,7 +16,7 @@ export class MarketService {
 
   addSocketChannel(socket: WebSocket, request: IncomingMessage) {
     this.sockets.set("socketName", socket)
-    console.log(`Socket channel added`)
+    logger.info(`[MarketService] operation=addSocketChannel request=${request}; socket=${socket}`)
   }
 
   publishTrade(trade: Trade) {
@@ -30,9 +31,9 @@ export class MarketService {
     }
   }
 
-  private send(message: MarketFeed) {
-    const data = JSON.stringify(message)
+  private send(payload: MarketFeed) {
+    const data = JSON.stringify(payload)
     this.sockets.get("socketName").send(data)
-    console.log(`MarketService send message=${data}`)
+    logger.info(`[MarketService] operation=send data=${data}`)
   }
 }

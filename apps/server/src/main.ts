@@ -4,24 +4,20 @@ import WebSocketServer from "./app/websockets/server/WebSocketServer";
 import WebSocketClient from "./app/websockets/clients/WebSocketClient";
 
 import express = require("express");
-import * as process from "process";
+import logger from "./app/configs/Logger";
 
 function main() {
   const app: Express = express();
   const port = 8080;
 
   const server = app.listen(port, () => {
-    // startWebSocketClients()
-    // startWebSocketServer()
     PriceCheckerCronJob.start()
-
-    process.send(`⚡️[server]: Server is running at http://localhost:${port}`)
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    logger.info(`Server is running at http://localhost:${port}`)
   });
 
-  WebSocketServer(server).then(r => console.log(`websocket server started ${r.path}`))
+  WebSocketServer(server).then(() => logger.debug(`Websocket Server ready`))
 
-  WebSocketClient().then(exchanges => console.log(`Subscribed to ${exchanges.size()} Exchanges`))
+  WebSocketClient().then(exchanges => logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
 
   app.get('/', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
