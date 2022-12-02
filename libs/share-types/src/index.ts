@@ -4,4 +4,6 @@ export * from './lib/kraken/KrakenMessages';
 export * from './lib/kraken/KrakenRequests';
 export * from './lib/common/Pairs';
 export * from './lib/common/ExchangeHouses';
-export * from './lib/common/ExchangeSockets'
+export * from './lib/common/ExchangeSockets';
+export * from './lib/websocket/server/WssMessage';
+export * from './lib/websocket/service/MarketFeed';

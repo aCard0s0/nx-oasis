@@ -1,0 +1,12 @@
+
+.feed-connection {
+  grid-area: feed-connection;
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin: 16px;
+  }
+}
+
+
