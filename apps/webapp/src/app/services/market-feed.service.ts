@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Market, SystemNotice, Trade, WssMessage} from "@oasis/share-types";
+import {Market, MarketFeed, SystemNotice, Trade, WebSocketServerMessages} from "@oasis/share-types";
 import {Subject} from "rxjs";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {webSocket} from "rxjs/webSocket";
@@ -8,10 +8,10 @@ import {webSocket} from "rxjs/webSocket";
   providedIn: 'root'
 })
 export class MarketFeedService {
-  socket: WebSocketSubject<WssMessage>
+  socket: WebSocketSubject<MarketFeed>
   systemNotice$ = new Subject<SystemNotice>()
-  tradeNotice$ = new Subject<Trade>()
   marketNotice$ = new Subject<Market>()
+  tradeNotice$ = new Subject<Trade>()
 
   constructor() {
     this.socket = webSocket(`ws://localhost:8080/websockets`)
@@ -21,19 +21,21 @@ export class MarketFeedService {
     this.socket.subscribe(message => this.onMessageFromServer(message))
   }
 
-  onMessageFromServer(message: WssMessage) {
-    console.log("From server: ", message)
+  onMessageFromServer(message: MarketFeed) {
     switch (message.event) {
-      case "systemNotice": {
+      /*case "systemNotice": {
+        console.log("From server: ", message)
         this.systemNotice$.next(message)
         break;
-      }
+      }*/
       case 'market': {
+        console.log("From server: ", message)
         this.marketNotice$.next(message)
         break;
       }
       case 'trade': {
-        this.tradeNotice$.next(message)
+        //console.log("From server: ", message)
+        //this.tradeNotice$.next(message)
         break;
       }
     }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MarketFeedService} from "./exchanges/market-feed.service";
+import {MarketFeedService} from "./services/market-feed.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SystemNotice} from "@oasis/share-types";
 

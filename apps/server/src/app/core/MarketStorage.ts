@@ -34,9 +34,7 @@ export class MarketStorage {
     })
   }
 
-  getPrice(pair: Pairs, exchange: ExchangeHouses) : number {
-    return this.prices.get(pair).get(exchange)
-  }
+
 
   sendMarketSnapshot() {
     let market: MarketFeed;
@@ -47,17 +45,21 @@ export class MarketStorage {
         market: pair,
         exchanges: []
       };
-      for (const exchange of exchangeMap.values()) {
+      for (const exchange of exchangeMap.keys()) {
         market.exchanges.push(
           {
-            name: exchange[0],
+            name: exchange,
             lastPrice: {
-              amount: exchange[1],
+              amount: this.getPrice(pair, exchange),
               currency: 'Eur'
             }
           });
       }
       this.marketService.publishMarketSnapshot(market)
     })
+  }
+
+  getPrice(pair: Pairs, exchange: ExchangeHouses) : number {
+    return this.prices.get(pair).get(exchange)
   }
 }

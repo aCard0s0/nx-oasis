@@ -10,8 +10,8 @@ export default async () => {
   exchanges.add(ExchangeSockets.Kraken, new KrakenWsClient(KrakenSubTradeRequest))
 
   //configs.remove(ExchangeHouses.Binance, BinanceUnsubRequest)
-  //exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest2))
-  //exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest3))
+  //services.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest2))
+  //services.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubRequest3))
 
   return exchanges;
 }
