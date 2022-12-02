@@ -20,12 +20,5 @@ export class MarketPanelComponent implements OnInit {
 
   private updatePanel(market: Market) {
     this.marketFeed = market
-    console.log(this.marketFeed.exchanges[0].name)
-    console.log(this.marketFeed.exchanges[0].lastPrice.amount)
-    console.log(this.marketFeed.exchanges[0].lastPrice.currency)
-    console.log('')
-    console.log(market.exchanges[0].name)
-    console.log(market.exchanges[0].lastPrice.amount)
-    console.log(market.exchanges[0].lastPrice.currency)
   }
 }
