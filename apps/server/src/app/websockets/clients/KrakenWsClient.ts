@@ -1,9 +1,9 @@
-import {WsClientHandler} from "./WsClientHandler";
+import {WebSocketClientHandler} from "./WebSocketClientHandler";
 import {RawData} from "ws";
 import {ExchangeHouses, KrakenOHLC, KrakenSubscribeRequest, KrakenTicker, Pairs} from "@oasis/share-types";
 import logger from "../../configs/Logger";
 
-export class KrakenWsClient extends WsClientHandler {
+export class KrakenWsClient extends WebSocketClientHandler {
 
   constructor(request: KrakenSubscribeRequest) {
     super()

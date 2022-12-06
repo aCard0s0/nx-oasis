@@ -9,6 +9,8 @@
 ### Tools Docs:
 * Logger
   * [Pino](https://getpino.io/#/)
+* Websockets
+  * [Tests article](https://thomason-isaiah.medium.com/writing-integration-tests-for-websocket-servers-using-jest-and-ws-8e5c61726b2a)
 
 <hr>
 

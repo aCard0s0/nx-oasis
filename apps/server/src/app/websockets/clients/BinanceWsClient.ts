@@ -1,4 +1,4 @@
-import {WsClientHandler} from "./WsClientHandler";
+import {WebSocketClientHandler} from "./WebSocketClientHandler";
 import {RawData} from "ws";
 import {
   AggregateTrade,
@@ -11,7 +11,7 @@ import {
 } from "@oasis/share-types";
 import logger from "../../configs/Logger";
 
-export class BinanceWsClient extends WsClientHandler {
+export class BinanceWsClient extends WebSocketClientHandler {
 
   constructor(request: BinanceSubscribeRequest) {
     super()

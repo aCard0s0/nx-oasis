@@ -1,7 +1,7 @@
 import {Express, Request, Response} from "express"
 import {PriceCheckerCronJob} from "./app/cronjob/PriceCheckerCronJob";
 import WebSocketServer from "./app/websockets/server/WebSocketServer";
-import WebSocketClient from "./app/websockets/clients/WebSocketClient";
+import WebSocketClient from "./app/websockets/clients/WebSocketClientManager";
 
 import express = require("express");
 import logger from "./app/configs/Logger";

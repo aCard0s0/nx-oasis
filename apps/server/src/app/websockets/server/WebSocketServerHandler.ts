@@ -39,6 +39,10 @@ export class WebSocketServerHandler {
     const payload: WebSocketServerMessages = JSON.parse(`${data}`)
 
     switch (payload.event) {
+      case "echo" : {
+        socket.send(data)
+        break;
+      }
       case "systemNotice": {
         console.log('TODO')
       }

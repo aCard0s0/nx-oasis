@@ -5,7 +5,7 @@ import {
 import {MarketStorage} from "../../core/MarketStorage";
 import logger from "../../configs/Logger";
 
-export abstract class WsClientHandler {
+export abstract class WebSocketClientHandler {
   private ws: WebSocket
   protected request: SubscribeRequest
   protected prices: MarketStorage = MarketStorage.getInstance()
@@ -19,13 +19,15 @@ export abstract class WsClientHandler {
   }
 
   subscribe(request: SubscribeRequest) {
-    logger.info(`[WsClientHandler] operation=subscribe; request=${request}`)
-    this.ws.send(JSON.stringify(request))
+    const req = JSON.stringify(request)
+    logger.info(`[WsClientHandler] operation=subscribe; request=${req}`)
+    this.ws.send(req)
   }
 
   unsubscribe(request: UnsubscribeRequest) {
-    logger.info(`[WsClientHandler] operation=unsubscribe; request=${request}`)
-    this.ws.send(JSON.stringify(request))
+    const req = JSON.stringify(request)
+    logger.info(`[WsClientHandler] operation=unsubscribe; request=${req}`)
+    this.ws.send(req)
   }
 
   private onSocketOpen() {

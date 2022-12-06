@@ -8,7 +8,9 @@
     "build": "nx build",
     "test": "nx test",
     "webapp:start": "nx serve webapp",
-    "server:start": "nx serve server"
+    "server:start": "nx serve server",
+    "server:test": "jest",
+    "server:coverage": "jest --coverage"
   },
   "private": true,
   "dependencies": {

@@ -1,4 +1,4 @@
-import {WsClientHandler} from "../clients/WsClientHandler";
+import {WebSocketClientHandler} from "../clients/WebSocketClientHandler";
 import {
   ExchangeSockets,
   UnsubscribeRequest
@@ -8,10 +8,10 @@ export class ExchangeManager {
   private exchanges;
 
   constructor() {
-    this.exchanges = new Map<ExchangeSockets, WsClientHandler>()
+    this.exchanges = new Map<ExchangeSockets, WebSocketClientHandler>()
   }
 
-  add(websocketUrl: ExchangeSockets, socket: WsClientHandler) {
+  add(websocketUrl: ExchangeSockets, socket: WebSocketClientHandler) {
     socket.initialize(websocketUrl)
     this.exchanges.set(websocketUrl, socket)
     console.log(`[ExchangeManager] Socket initialized; url=${websocketUrl}`)
