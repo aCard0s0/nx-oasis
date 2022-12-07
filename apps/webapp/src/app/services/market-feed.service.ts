@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Market, MarketFeed, SystemNotice, Trade, WebSocketServerMessages} from "@oasis/share-types";
+import {Market, MarketFeed, PriceDiff, SystemNotice, Trade, WebSocketServerMessages} from "@oasis/share-types";
 import {Subject} from "rxjs";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {webSocket} from "rxjs/webSocket";
@@ -12,6 +12,7 @@ export class MarketFeedService {
   systemNotice$ = new Subject<SystemNotice>()
   marketNotice$ = new Subject<Market>()
   tradeNotice$ = new Subject<Trade>()
+  priceDiffNotice$ = new Subject<PriceDiff>()
 
   constructor() {
     this.socket = webSocket(`ws://localhost:8080/websockets`)
@@ -36,6 +37,11 @@ export class MarketFeedService {
       case 'trade': {
         //console.log("From server: ", message)
         //this.tradeNotice$.next(message)
+        break;
+      }
+      case 'priceDiff': {
+        console.log("From server: ", message)
+        this.priceDiffNotice$.next(message)
         break;
       }
     }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Market} from "@oasis/share-types";
-import {MarketFeedService} from "../services/market-feed.service";
+import {MarketFeedService} from "../../services/market-feed.service";
 
 @Component({
   selector: 'oasis-market-panel',
@@ -11,7 +11,7 @@ export class MarketPanelComponent implements OnInit {
   panelOpenState = false;
   marketFeed: Market | undefined
 
-  constructor(private marketFeedService: MarketFeedService,) {
+  constructor(private marketFeedService: MarketFeedService) {
   }
 
   ngOnInit(): void {

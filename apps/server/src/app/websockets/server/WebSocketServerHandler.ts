@@ -14,7 +14,7 @@ export class WebSocketServerHandler {
   initialize() {
     this.marketService = MarketService.getInstance()
 
-    this.wsServer.on("listening", () => this.onSocketListening())
+    this.wsServer.on('listening', () => this.onSocketListening())
     this.wsServer.on('connection', (socket, request) => this.onSocketConnected(socket, request))
   }
 
@@ -51,5 +51,6 @@ export class WebSocketServerHandler {
 
   onSocketClosed(socket: WebSocket, code: number, reason: Buffer) {
     logger.info(`[WebSocketServerHandler] operation=onSocketClosed; code=${code}, reason=${reason}`)
+    this.marketService.removeSocketChannel(socket)
   }
 }

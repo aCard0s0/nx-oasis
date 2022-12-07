@@ -1,7 +1,7 @@
 import {Pairs} from "../../common/Pairs";
 import {ExchangeHouses} from "../../common/ExchangeHouses";
 
-export type MarketFeed = Market | Trade
+export type MarketFeed = Market | Trade | PriceDiff
 
 export interface Market {
   event: 'market'
@@ -24,4 +24,16 @@ export interface Trade {
 interface Price {
   amount: number,
   currency: string
+}
+
+export interface PriceDiff {
+  event: 'priceDiff',
+  priceDiffDetails: PriceDiffDetails[]
+}
+
+interface PriceDiffDetails {
+  pair: Pairs,
+  from: ExchangeHouses,
+  to: ExchangeHouses,
+  priceDiff: Price
 }

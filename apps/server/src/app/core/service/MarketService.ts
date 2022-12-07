@@ -1,4 +1,4 @@
-import {Market, MarketFeed, Trade} from "@oasis/share-types";
+import {Market, MarketFeed, PriceDiff, Trade} from "@oasis/share-types";
 import {IncomingMessage} from "http";
 import {WebSocket} from "ws";
 import logger from "../../configs/Logger";
@@ -16,7 +16,12 @@ export class MarketService {
 
   addSocketChannel(socket: WebSocket, request: IncomingMessage) {
     this.sockets.set("socketName", socket)
-    logger.info(`[MarketService] operation=addSocketChannel request=${request}; socket=${socket}`)
+    logger.info(`[MarketService] operation=addSocketChannel; request=${request}; socket=${socket}`)
+  }
+
+  removeSocketChannel(socket: WebSocket) {
+    this.sockets.delete('socketName')
+    logger.info(`[MarketService] operation=removeSocketChannel; socket=${socket}`)
   }
 
   publishTrade(trade: Trade) {
@@ -35,5 +40,11 @@ export class MarketService {
     const data = JSON.stringify(payload)
     this.sockets.get("socketName").send(data)
     logger.info(`[MarketService] operation=send data=${data}`)
+  }
+
+  publishMarketPriceDifferent(message: PriceDiff) {
+    if (this.sockets.size > 0) {
+      this.send(message)
+    }
   }
 }

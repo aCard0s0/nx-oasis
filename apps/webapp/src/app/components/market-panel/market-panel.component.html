@@ -1,0 +1,32 @@
+<mat-accordion>
+  <mat-expansion-panel
+    *ngIf="marketFeed !== undefined"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{marketFeed.market}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Check detail prices
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-tile>
+        <div *ngIf="marketFeed && marketFeed.exchanges.length > 0">
+          <div *ngFor="let exchange of marketFeed.exchanges">
+            {{exchange.name}} : {{exchange.lastPrice.amount.toFixed(4)}} {{exchange.lastPrice.currency}}
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+
+        <oasis-price-diff></oasis-price-diff>
+
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
+  </mat-expansion-panel>
+</mat-accordion>
