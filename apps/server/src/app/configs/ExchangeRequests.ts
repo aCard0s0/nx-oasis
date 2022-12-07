@@ -9,6 +9,7 @@ export const BinanceSubRequest: BinanceSubscribeRequest = {
   method: "SUBSCRIBE",
   params: [
     "etheur@aggTrade",
+    "btceur@aggTrade",
   ],
   id: 1
 }
@@ -25,6 +26,7 @@ export const KrakenSubTradeRequest: KrakenSubscribeRequest = {
   event: "subscribe",
   pair: [
     "ETH/EUR",
+    "XBT/EUR",
   ],
   subscription: {
     name: "trade"

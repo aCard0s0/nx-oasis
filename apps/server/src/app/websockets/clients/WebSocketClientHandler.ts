@@ -20,31 +20,31 @@ export abstract class WebSocketClientHandler {
 
   subscribe(request: SubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.info(`[WsClientHandler] operation=subscribe; request=${req}`)
+    logger.info(`[WebSocketClientHandler] operation=subscribe; request=${req}`)
     this.ws.send(req)
   }
 
   unsubscribe(request: UnsubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.info(`[WsClientHandler] operation=unsubscribe; request=${req}`)
+    logger.info(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
     this.ws.send(req)
   }
 
   private onSocketOpen() {
-    logger.debug(`[WsClientHandler] operation=onSocketOpen`)
+    logger.debug(`[WebSocketClientHandler] operation=onSocketOpen`)
     this.subscribe(this.request)
   }
 
   protected onSocketMessage(data:RawData) {
-    logger.debug(`[WsClientHandler] operation=onSocketMessage; data=${data}`)
+    logger.debug(`[WebSocketClientHandler] operation=onSocketMessage; data=${data}`)
   }
 
   private onSocketError(error: Error) {
-    logger.debug(`[WsClientHandler] operation=onSocketError; name=${error.name}; message=${error.message}`)
+    logger.error(`[WebSocketClientHandler] operation=onSocketError; name=${error.name}; message=${error.message}`)
   }
 
   private onSocketClose(code: number) {
-    logger.debug(`[WsClientHandler] operation=onSocketClose; code=${code}`)
+    logger.info(`[WebSocketClientHandler] operation=onSocketClose; code=${code}`)
   }
 
 }

@@ -1,5 +1,5 @@
 import {Express, Request, Response} from "express"
-import {PriceCheckerCronJob} from "./app/cronjob/PriceCheckerCronJob";
+import {MarketUpdate} from "./app/cronjob/MarketUpdate";
 import WebSocketServer from "./app/websockets/server/WebSocketServer";
 import WebSocketClient from "./app/websockets/clients/WebSocketClientManager";
 
@@ -11,7 +11,7 @@ function main() {
   const port = 8080;
 
   const server = app.listen(port, () => {
-    PriceCheckerCronJob.start()
+    MarketUpdate.start()
     logger.info(`Server is running at http://localhost:${port}`)
   });
 

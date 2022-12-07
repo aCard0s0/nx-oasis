@@ -7,7 +7,7 @@ import {
   BinanceTrade,
   ExchangeHouses,
   MiniTicker,
-  Pairs,
+  PairsConverter,
 } from "@oasis/share-types";
 import logger from "../../configs/Logger";
 
@@ -18,14 +18,15 @@ export class BinanceWsClient extends WebSocketClientHandler {
     this.request = request
   }
 
-  onSocketMessage(data: RawData) {
+  override onSocketMessage(data: RawData) {
     logger.debug(`[BinanceWsClient] operation=onSocketMessage; data=${data}`)
 
     const payload: BinanceMessages = JSON.parse(`${data}`)
     switch (payload.e) {
       case "aggTrade": {
         const aggTrade: AggregateTrade = JSON.parse(`${data}`)
-        this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Binance, parseFloat(aggTrade.p))
+        this.prices.addPrice(
+          PairsConverter.convert(aggTrade.s), ExchangeHouses.Binance, parseFloat(aggTrade.p));
         break;
       }
       case "trade": {
