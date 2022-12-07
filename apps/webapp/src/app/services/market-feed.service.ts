@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Market, MarketFeed, PriceDiff, SystemNotice, Trade, WebSocketServerMessages} from "@oasis/share-types";
+import {Market, MarketFeed, PriceDiff, SystemNotice, Trade} from "@oasis/share-types";
 import {Subject} from "rxjs";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {webSocket} from "rxjs/webSocket";

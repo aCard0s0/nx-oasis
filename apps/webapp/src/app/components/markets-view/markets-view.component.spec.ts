@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MarketPanelComponent } from './market-panel.component';
+import { MarketsViewComponent } from './markets-view.component';
 
-describe('MarketPanelComponent', () => {
-  let component: MarketPanelComponent;
-  let fixture: ComponentFixture<MarketPanelComponent>;
+describe('MarketsViewComponent', () => {
+  let component: MarketsViewComponent;
+  let fixture: ComponentFixture<MarketsViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MarketPanelComponent],
+      declarations: [MarketsViewComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MarketPanelComponent);
+    fixture = TestBed.createComponent(MarketsViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

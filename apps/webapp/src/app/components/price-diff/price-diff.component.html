@@ -1,6 +1,0 @@
-
-<div *ngIf="priceDiff !== undefined && priceDiff.priceDiffDetails.length > 0">
-  <div *ngFor="let pDiff of priceDiff.priceDiffDetails">
-    {{pDiff.from}} - {{pDiff.to}} : {{pDiff.priceDiff.amount.toFixed(4)}} {{pDiff.priceDiff.currency}}
-  </div>
-</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MarketFeedService} from "../../services/market-feed.service";
+import {MarketFeedService} from "../../../services/market-feed.service";
 import {PriceDiff} from "@oasis/share-types";
 
 @Component({
@@ -8,9 +8,10 @@ import {PriceDiff} from "@oasis/share-types";
   styleUrls: ['./price-diff.component.scss'],
 })
 export class PriceDiffComponent implements OnInit {
-  priceDiff: PriceDiff | undefined
+  diffFeed: Map<string, PriceDiff>;
 
   constructor(private marketFeedService: MarketFeedService) {
+    this.diffFeed = new Map<string, PriceDiff>();
   }
 
   ngOnInit(): void {
@@ -18,7 +19,14 @@ export class PriceDiffComponent implements OnInit {
   }
 
   private updatePriceDiff(priceDiff: PriceDiff) {
-    this.priceDiff = priceDiff
-    console.log(priceDiff)
+    this.diffFeed.set(priceDiff.pair, priceDiff)
+  }
+
+  priceDiffFeedPairs() {
+    return Array.from(this.diffFeed.keys());
+  }
+
+  getPriceDiffDetailsFor(pair: string) {
+    return this.diffFeed.get(pair)?.priceDiffDetails
   }
 }

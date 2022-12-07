@@ -39,7 +39,7 @@ export class MarketService {
   private send(payload: MarketFeed) {
     const data = JSON.stringify(payload)
     this.sockets.get("socketName").send(data)
-    logger.info(`[MarketService] operation=send data=${data}`)
+    logger.debug(`[MarketService] operation=send data=${data}`)
   }
 
   publishMarketPriceDifferent(message: PriceDiff) {

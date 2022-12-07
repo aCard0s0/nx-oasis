@@ -1,0 +1,18 @@
+<mat-expansion-panel *ngFor="let pair of marketFeedPairs()"
+                     [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{pair}}
+    </mat-panel-title>
+    <mat-panel-description>
+      Current Prices
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let exchange of getExchangesFor(pair)">
+    {{exchange.name}} : {{exchange.lastPrice.amount.toFixed(4)}} {{exchange.lastPrice.currency}}
+  </div>
+
+</mat-expansion-panel>
+
+

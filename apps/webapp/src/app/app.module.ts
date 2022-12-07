@@ -11,18 +11,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import { MarketPanelComponent } from './components/market-panel/market-panel.component';
+import { MarketPriceComponent } from './components/markets-view/market-panel/market-price.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TradePanelComponent } from './components/trade-panel/trade-panel.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { PriceDiffComponent } from './components/price-diff/price-diff.component';
+import { PriceDiffComponent } from './components/markets-view/price-diff/price-diff.component';
+import { MarketsViewComponent } from './components/markets-view/markets-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MarketPanelComponent,
+    MarketPriceComponent,
     TradePanelComponent,
     PriceDiffComponent,
+    MarketsViewComponent,
   ],
   imports: [
     BrowserModule,

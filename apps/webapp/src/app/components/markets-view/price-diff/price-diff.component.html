@@ -1,0 +1,16 @@
+<mat-expansion-panel *ngFor="let pair of priceDiffFeedPairs()"
+                     [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{pair}}
+    </mat-panel-title>
+    <mat-panel-description>
+      Prices Differences
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let pDiff of getPriceDiffDetailsFor(pair)">
+    {{pDiff.from}} - {{pDiff.to}} : {{pDiff.priceDiff.amount.toFixed(4)}} {{pDiff.priceDiff.currency}}
+  </div>
+
+</mat-expansion-panel>
