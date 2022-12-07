@@ -1,6 +1,12 @@
 import {WebSocketClientHandler} from "./WebSocketClientHandler";
 import {RawData} from "ws";
-import {ExchangeHouses, KrakenOHLC, KrakenSubscribeRequest, KrakenTicker, Pairs} from "@oasis/share-types";
+import {
+  ExchangeHouses,
+  KrakenOHLC,
+  KrakenSubscribeRequest,
+  KrakenTicker,
+  PairsConverter
+} from "@oasis/share-types";
 import logger from "../../configs/Logger";
 
 export class KrakenWsClient extends WebSocketClientHandler {
@@ -17,8 +23,9 @@ export class KrakenWsClient extends WebSocketClientHandler {
 
     switch (payload[2]) {
       case "trade": {
-        const trade: any = JSON.parse(`${data}`)
-        this.prices.addPrice(Pairs.ETH_EUR, ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
+        const trade: any = JSON.parse(`${data}`)   // TODO: build obj?
+        this.prices.addPrice(
+          PairsConverter.convert(trade[3]), ExchangeHouses.Kraken, parseFloat(trade[1][0][0]))
         break;
       }
       case "ticker": {
