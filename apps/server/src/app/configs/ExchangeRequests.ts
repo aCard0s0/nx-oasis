@@ -1,6 +1,6 @@
 import {
   BinanceSubscribeRequest,
-  BinanceUnsubscribeRequest,
+  BinanceUnsubscribeRequest, CoinbaseSubscribeRequest, CoinbaseUnsubscribeRequest,
   KrakenSubscribeRequest,
   KrakenUnsubscribeRequest
 } from "@oasis/share-types";
@@ -10,6 +10,7 @@ export const BinanceSubRequest: BinanceSubscribeRequest = {
   params: [
     "etheur@aggTrade",
     "btceur@aggTrade",
+    "adaeur@aggTrade",
   ],
   id: 1
 }
@@ -27,6 +28,7 @@ export const KrakenSubTradeRequest: KrakenSubscribeRequest = {
   pair: [
     "ETH/EUR",
     "XBT/EUR",
+    "ADA/EUR",
   ],
   subscription: {
     name: "trade"
@@ -61,4 +63,38 @@ export const KrakenUnsubTradeRequest: KrakenUnsubscribeRequest = {
   subscription: {
     name: "trade"
   }
+}
+
+export const CoinbaseSubTickerRequest: CoinbaseSubscribeRequest = {
+  type: "subscribe",
+  product_ids: [
+    "ETH-EUR"
+  ],
+  channels: [
+    {
+      "name": "ticker",
+      "product_ids": [
+        "BTC-EUR",
+        "ETH-EUR",
+        "ADA-EUR",
+      ]
+    }
+  ]
+}
+
+export const CoinbaseSubHeartbeatRequest: CoinbaseSubscribeRequest = {
+  type: 'subscribe',
+  product_ids: [
+    'ETH-EUR'
+  ],
+  channels: [
+    'heartbeat'
+  ]
+}
+
+export const CoinbaseUnsubRequest: CoinbaseUnsubscribeRequest = {
+  type: "subscribe",
+  channels: [
+    "heartbeat",
+  ]
 }

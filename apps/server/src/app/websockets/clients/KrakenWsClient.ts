@@ -1,7 +1,7 @@
 import {WebSocketClientHandler} from "./WebSocketClientHandler";
 import {RawData} from "ws";
 import {
-  ExchangeHouses,
+  ExchangeHouses, ExchangeSockets,
   KrakenOHLC,
   KrakenSubscribeRequest,
   KrakenTicker,
@@ -12,11 +12,10 @@ import logger from "../../configs/Logger";
 export class KrakenWsClient extends WebSocketClientHandler {
 
   constructor(request: KrakenSubscribeRequest) {
-    super()
-    this.request = request
+    super(ExchangeSockets.Kraken, request)
   }
 
-  onSocketMessage(data: RawData) {
+  override onSocketMessage(data: RawData) {
     logger.debug(`[KrakenWsClient] operation=onSocketMessage; data=${data}`)
     const payload = JSON.parse(`${data}`)
     if (payload.event == 'heartbeat') return;

@@ -7,10 +7,11 @@ import logger from "../../configs/Logger";
 
 export abstract class WebSocketClientHandler {
   private ws: WebSocket
-  protected request: SubscribeRequest
+  protected request: SubscribeRequest;
   protected prices: MarketStorage = MarketStorage.getInstance()
 
-  initialize(websocketUrl: ExchangeSockets) {
+  protected constructor(websocketUrl: ExchangeSockets, request: SubscribeRequest) {
+    this.request = request
     this.ws = new WebSocket(websocketUrl)
     this.ws.on('open', () => this.onSocketOpen())
     this.ws.on('message', (data) => this.onSocketMessage(data))
@@ -18,15 +19,15 @@ export abstract class WebSocketClientHandler {
     this.ws.on('close', (data) => this.onSocketClose(data))
   }
 
-  subscribe(request: SubscribeRequest) {
+  protected subscribe(request: SubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.info(`[WebSocketClientHandler] operation=subscribe; request=${req}`)
+    logger.debug(`[WebSocketClientHandler] operation=subscribe; request=${req}`)
     this.ws.send(req)
   }
 
-  unsubscribe(request: UnsubscribeRequest) {
+  protected unsubscribe(request: UnsubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.info(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
+    logger.debug(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
     this.ws.send(req)
   }
 

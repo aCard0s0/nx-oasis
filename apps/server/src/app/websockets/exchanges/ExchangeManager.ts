@@ -1,26 +1,26 @@
 import {WebSocketClientHandler} from "../clients/WebSocketClientHandler";
 import {
-  ExchangeSockets,
+  ExchangeHouses,
   UnsubscribeRequest
 } from "@oasis/share-types";
+import logger from "../../configs/Logger";
 
 export class ExchangeManager {
   private exchanges;
 
   constructor() {
-    this.exchanges = new Map<ExchangeSockets, WebSocketClientHandler>()
+    this.exchanges = new Map<ExchangeHouses, WebSocketClientHandler>()
   }
 
-  add(websocketUrl: ExchangeSockets, socket: WebSocketClientHandler) {
-    socket.initialize(websocketUrl)
-    this.exchanges.set(websocketUrl, socket)
-    console.log(`[ExchangeManager] Socket initialized; url=${websocketUrl}`)
+  add(house: ExchangeHouses, socket: WebSocketClientHandler) {
+    this.exchanges.set(house, socket)
+    logger.info(`[ExchangeManager] operation=add; msg='Socket initialized'; house=${house};`)
   }
 
-  remove(websocketUrl: ExchangeSockets, request: UnsubscribeRequest) {
-    this.exchanges.get(websocketUrl).unsubscribe(request)
-    this.exchanges.delete(websocketUrl)
-    console.log(`[ExchangeManager] Socket finalized; url=${websocketUrl}`)
+  remove(house: ExchangeHouses, request: UnsubscribeRequest) {
+    this.exchanges.get(house).unsubscribe(request)
+    this.exchanges.delete(house)
+    logger.info(`[ExchangeManager] operation=remove; msg='Socket finalized'; house=${house}`)
   }
 
   size() {
