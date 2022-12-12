@@ -1,4 +1,4 @@
-import {MarketStorage} from "../../app/core/MarketStorage";
+import {MarketStorage} from "../../../app/core/market/MarketStorage";
 import {ExchangeHouses, Pairs} from "@oasis/share-types";
 
 describe('Market Storage', () => {

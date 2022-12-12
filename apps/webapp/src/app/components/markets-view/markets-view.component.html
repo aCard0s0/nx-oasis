@@ -1,9 +1,11 @@
 <mat-accordion [multi]="true">
   <div class="row">
     <div class="col">
+      <button (click)="connect('market')" mat-raised-button color="primary">Connect to Market Feed</button>
       <oasis-market-panel></oasis-market-panel>
     </div>
     <div class="col">
+      <button (click)="connect('priceDiff')" mat-raised-button color="primary">Connect to Price Diff Feed</button>
       <oasis-price-diff></oasis-price-diff>
     </div>
   </div>

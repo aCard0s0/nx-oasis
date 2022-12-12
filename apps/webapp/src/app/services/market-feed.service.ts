@@ -16,8 +16,9 @@ export class MarketFeedService {
 
   connect(name:string) {
     console.log(`Connecting to ${name} websockets`)
-    this.socket = webSocket(`ws://localhost:8080/websockets?=${name}`)
+    this.socket = webSocket(`ws://localhost:8080/websockets?name=${name}`)
     this.socket.subscribe(message => this.onMessageFromServer(message))
+    console.log(`Start consuming messages from websocket: ${name}`)
   }
 
   onMessageFromServer(message: MarketFeed) {
@@ -28,7 +29,7 @@ export class MarketFeedService {
         break;
       }*/
       case 'market': {
-        console.log("From server: ", message)
+
         this.marketNotice$.next(message)
         break;
       }
@@ -38,7 +39,6 @@ export class MarketFeedService {
         break;
       }
       case 'priceDiff': {
-        console.log("From server: ", message)
         this.priceDiffNotice$.next(message)
         break;
       }

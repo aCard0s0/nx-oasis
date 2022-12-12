@@ -23,7 +23,6 @@ export class WebSocketServerHandler {
     logger.info(`[WebSocketServerHandler] operation=onSocketListening`)
   }
   onSocketConnected(socket: WebSocket, request: IncomingMessage) {
-    logger.info(`[WebSocketServerHandler] operation=onSocketConnected; socket=${socket}; request=${request}`)
     this.marketService.addSocketChannel(socket, request)
 
     socket.on('message', (data) => {this.onSocketMessage(socket, data)})

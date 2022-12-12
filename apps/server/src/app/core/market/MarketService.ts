@@ -1,4 +1,4 @@
-import {Market, MarketFeed, PriceDiff, Trade} from "@oasis/share-types";
+import {Market, MarketFeed, PriceDiff} from "@oasis/share-types";
 import {IncomingMessage} from "http";
 import {WebSocket} from "ws";
 import logger from "../../configs/Logger";
@@ -15,8 +15,9 @@ export class MarketService {
   }
 
   addSocketChannel(socket: WebSocket, request: IncomingMessage) {
-    this.sockets.set("socketName", socket)
-    logger.info(`[MarketService] operation=addSocketChannel; request=${request}; socket=${socket}`)
+    const name = new URL(request.headers.host + request.url).searchParams.get("name")
+    this.sockets.set(name, socket)
+    logger.info(`[MarketService] operation=addSocketChannel; websocketName=${name}`)
   }
 
   removeSocketChannel(socket: WebSocket) {
@@ -24,27 +25,21 @@ export class MarketService {
     logger.info(`[MarketService] operation=removeSocketChannel; socket=${socket}`)
   }
 
-  publishTrade(trade: Trade) {
-    if (this.sockets.size > 0) {
-      this.send(trade)
-    }
-  }
-
   publishMarketSnapshot(market: Market) {
-    if (this.sockets.size > 0) {
-      this.send(market)
+    if (Array.from(this.sockets.keys()).find(name => name === 'market')) {
+      this.send(market, this.sockets.get('market'))
     }
   }
 
   publishMarketPriceDifferent(message: PriceDiff) {
-    if (this.sockets.size > 0) {
-      this.send(message)
+    if (Array.from(this.sockets.keys()).find(name => name === 'priceDiff')) {
+      this.send(message, this.sockets.get('priceDiff'))
     }
   }
 
-  private send(payload: MarketFeed) {
+  private send(payload: MarketFeed, socket: WebSocket) {
     const data = JSON.stringify(payload)
-    this.sockets.get("socketName").send(data)
+    socket.send(data)
     logger.debug(`[MarketService] operation=send data=${data}`)
   }
 

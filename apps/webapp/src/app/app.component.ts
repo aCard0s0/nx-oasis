@@ -14,11 +14,6 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.marketFeedService.systemNotice$.subscribe(notice => this.onSystemNotice(notice))
-    this.marketFeedService.connect('socketName')
-  }
-  connect(socketNameInput: HTMLInputElement) {
-    console.log(`Connecting as ${socketNameInput.value}`)
-    this.marketFeedService.connect(socketNameInput.value)
   }
 
   onSystemNotice(notice: SystemNotice) {
