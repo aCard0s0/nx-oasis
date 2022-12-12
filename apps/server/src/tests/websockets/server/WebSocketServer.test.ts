@@ -3,7 +3,7 @@ import express = require("express");
 import {WebSocket} from "ws";
 import {Express} from "express";
 import logger from "../../../app/configs/Logger";
-import * as process from "process";
+import {waitForSocketState} from "../WebSocketTestUtils";
 
 const port = 8080;
 jest.setTimeout(5000)
@@ -43,14 +43,4 @@ describe("WebSocket Server", () => {
   });
 });
 
-function waitForSocketState(socket, state) {
-  return new Promise<void>(function (resolve) {
-    setTimeout(function () {
-      if (socket.readyState === state) {
-        resolve();
-      } else {
-        waitForSocketState(socket, state).then(resolve);
-      }
-    }, 5);
-  });
-}
+

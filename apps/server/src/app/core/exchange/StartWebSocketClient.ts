@@ -1,4 +1,4 @@
-import {ExchangeManager} from "./ExchangeManager";
+import {WebsocketManager} from "../../websockets/clients/WebsocketManager";
 import {
   BinanceSubRequest,
   CoinbaseSubTickerRequest,
@@ -11,7 +11,7 @@ import {KrakenWsClient} from "../../websockets/clients/KrakenWsClient";
 import {CoinbaseWsClient} from "../../websockets/clients/CoinbaseWsClient";
 
 export default async () => {
-  const exchanges = new ExchangeManager()
+  const exchanges = new WebsocketManager()
   exchanges.add(ExchangeHouses.Binance, new BinanceWsClient(BinanceSubRequest))
   exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubTradeRequest))
   exchanges.add(ExchangeHouses.Coinbase, new CoinbaseWsClient(CoinbaseSubTickerRequest))

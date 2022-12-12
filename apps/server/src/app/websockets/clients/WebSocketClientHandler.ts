@@ -4,7 +4,7 @@ import {
 } from "@oasis/share-types";
 import {MarketStorage} from "../../core/market/MarketStorage";
 import logger from "../../configs/Logger";
-import {ClientMessagesProcessor} from "../../core/ClientMessagesProcessor";
+import {ClientMessagesProcessor} from "../../core/metrics/ClientMessagesProcessor";
 
 export abstract class WebSocketClientHandler {
   private ws: WebSocket
@@ -27,7 +27,7 @@ export abstract class WebSocketClientHandler {
     this.ws.send(req)
   }
 
-  protected unsubscribe(request: UnsubscribeRequest) {
+  unsubscribe(request: UnsubscribeRequest) {
     const req = JSON.stringify(request)
     logger.debug(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
     this.ws.send(req)
@@ -50,4 +50,15 @@ export abstract class WebSocketClientHandler {
     logger.info(`[WebSocketClientHandler] operation=onSocketClose; code=${code}`)
   }
 
+  getState() {
+    return this.ws.readyState
+  }
+
+  close() {
+    this.ws.close()
+  }
+
+  terminate() {
+    this.ws.terminate()
+  }
 }

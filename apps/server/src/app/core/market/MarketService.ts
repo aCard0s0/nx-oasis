@@ -26,13 +26,13 @@ export class MarketService {
   }
 
   publishMarketSnapshot(market: Market) {
-    if (Array.from(this.sockets.keys()).find(name => name === 'market')) {
+    if (this.sockets.has('market')) {
       this.send(market, this.sockets.get('market'))
     }
   }
 
   publishMarketPriceDifferent(message: PriceDiff) {
-    if (Array.from(this.sockets.keys()).find(name => name === 'priceDiff')) {
+    if (this.sockets.has('priceDiff')) {
       this.send(message, this.sockets.get('priceDiff'))
     }
   }

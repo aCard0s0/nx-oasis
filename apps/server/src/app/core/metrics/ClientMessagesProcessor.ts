@@ -1,4 +1,4 @@
-import logger from "../configs/Logger";
+import logger from "../../configs/Logger";
 
 export class ClientMessagesProcessor {
   private static instance: ClientMessagesProcessor
