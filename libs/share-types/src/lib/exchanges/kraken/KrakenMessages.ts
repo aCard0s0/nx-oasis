@@ -1,13 +1,37 @@
-export type KrakenMessages = KrakenTradeInt | KrakenTicker | KrakenOHLC
+import {KrakenTradeObj} from "./KrakenTrade";
 
-export interface KrakenTradeInt {
+export type KrakenMessages = KrakenHeartbeat | KrakenSystemStatus | krakenSubscription | KrakenTradeObj
+
+export interface KrakenHeartbeat {
+  event: 'heartbeat'
+}
+
+export interface KrakenSystemStatus {
+  connectionID: number,
+  event: 'systemStatus',
+  status: string,
+  version: string
+}
+
+export interface krakenSubscription {
+  channelID: number,              // deprecated
+  event: "subscriptionStatus",
+  channelName: string,
+  pair: string,
+  status: string,
+  subscription: {
+    "name": string
+  }
+}
+
+export interface KrakenTrade {
   channelID: number,    // Channel ID of subscription - deprecated, use channelName and pair
-  array: Trade[],
-  channelName: string,  // Channel Name of subscription
+  array: TradeDetails[],
+  event: string,        // Channel Name of subscription (rename as event)
   pair: string          // Asset pair
 }
 
-interface Trade {
+export interface TradeDetails {
   price: number,
   volume: number,
   time: number,
@@ -16,6 +40,7 @@ interface Trade {
   misc: string
 }
 
+/*
 export interface KrakenTicker {
   channelID: number,           // Channel ID of subscription - deprecated, use channelName and pair
   anonymous: {
@@ -65,3 +90,4 @@ interface OHLC {
   volume: number,     // Accumulated volume within interval
   count: number       // Number of trades within interval
 }
+*/

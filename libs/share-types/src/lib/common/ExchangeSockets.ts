@@ -1,6 +1,6 @@
-import {BinanceSubscribeRequest, BinanceUnsubscribeRequest} from "../binance/BinanceRequests";
-import {KrakenSubscribeRequest, KrakenUnsubscribeRequest} from "../kraken/KrakenRequests";
-import {CoinbaseSubscribeRequest, CoinbaseUnsubscribeRequest} from "../coinbase/CoinbaseRequests";
+import {BinanceSubscribeRequest, BinanceUnsubscribeRequest} from "../exchanges/binance/BinanceRequests";
+import {KrakenSubscribeRequest, KrakenUnsubscribeRequest} from "../exchanges/kraken/KrakenRequests";
+import {CoinbaseSubscribeRequest, CoinbaseUnsubscribeRequest} from "../exchanges/coinbase/CoinbaseRequests";
 
 export type SubscribeRequest = BinanceSubscribeRequest | KrakenSubscribeRequest | CoinbaseSubscribeRequest
 export type UnsubscribeRequest = BinanceUnsubscribeRequest | KrakenUnsubscribeRequest | CoinbaseUnsubscribeRequest

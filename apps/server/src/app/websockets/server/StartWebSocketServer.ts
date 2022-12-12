@@ -9,7 +9,6 @@ export default async (expressServer) => {
   });
 
   const handler = new WebSocketServerHandler(websocketServer)
-  handler.initialize()
 
   expressServer.on("upgrade", (request, socket, head) => {
     logger.debug("Express server upgrading")

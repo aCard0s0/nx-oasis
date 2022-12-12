@@ -1,4 +1,4 @@
-import {WebSocketClientHandler} from "../clients/WebSocketClientHandler";
+import {WebSocketClientHandler} from "../../websockets/clients/WebSocketClientHandler";
 import {
   ExchangeHouses,
   UnsubscribeRequest

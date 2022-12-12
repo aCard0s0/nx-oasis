@@ -3,8 +3,8 @@ import {RawData} from "ws";
 import logger from "../../configs/Logger";
 import {
   CoinbaseMessages,
-  CoinbaseSubscribeRequest, ExchangeHouses,
-  ExchangeSockets, PairsConverter, TickerCb
+  CoinbaseSubscribeRequest, ErrorMessageCb, ExchangeHouses,
+  ExchangeSockets, PairsConverter, CBSubscription, TickerCb
 } from "@oasis/share-types";
 
 export class CoinbaseWsClient extends WebSocketClientHandler {
@@ -18,10 +18,24 @@ export class CoinbaseWsClient extends WebSocketClientHandler {
 
     const payload: CoinbaseMessages = JSON.parse(`${data}`)
     switch (payload.type) {
-      case "ticker": {
+      case 'subscriptions': {
+        const subs: CBSubscription = JSON.parse(`${data}`)
+        if (subs.channels.length > 0) {
+          const channels = JSON.stringify(subs.channels);
+          logger.info(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful' channels=${channels}`)
+        }
+        break;
+      }
+      case 'error': {
+        const error: ErrorMessageCb = JSON.parse(`${data}`)
+        logger.error(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful'; reason=${error.reason}`)
+        break;
+      }
+      case 'ticker': {
         const ticker: TickerCb = JSON.parse(`${data}`)
-        this.prices.addPrice(
+        this.priceStorage.addPrice(
           PairsConverter.convert(ticker.product_id), ExchangeHouses.Coinbase, parseFloat(ticker.price))
+        this.msgProcessor.incrementCoinbaseTrade()
         break;
       }
       default :

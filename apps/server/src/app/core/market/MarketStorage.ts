@@ -1,10 +1,10 @@
-import {ExchangeHouses, Market, MarketFeed, Pairs, PriceDiff} from "@oasis/share-types";
-import {MarketService} from "./service/MarketService";
-import logger from "../configs/Logger";
+import {ExchangeHouses, Market, Pairs, PriceDiff} from "@oasis/share-types";
+import {MarketService} from "./MarketService";
+import logger from "../../configs/Logger";
 
 export class MarketStorage {
   private static instance: MarketStorage
-  private prices = new Map<Pairs, Map<ExchangeHouses, number>>()
+  private priceStorage = new Map<Pairs, Map<ExchangeHouses, number>>()
   private pairs = new Set<Pairs>()
   private marketService = MarketService.getInstance()
 
@@ -17,14 +17,14 @@ export class MarketStorage {
 
   // Todo: decrease the number of call to this function
   addPrice(pair: Pairs, exchange: ExchangeHouses, price: number) {
-    if (!this.prices.has(pair) && !this.pairs.has(pair)) {
+    if (!this.priceStorage.has(pair) && !this.pairs.has(pair)) {
       const map = new Map<ExchangeHouses, number>()
       map.set(exchange, price)
-      this.prices.set(pair, map);
+      this.priceStorage.set(pair, map);
       this.pairs.add(pair)
 
     } else {
-      this.prices.get(pair).set(exchange, price)
+      this.priceStorage.get(pair).set(exchange, price)
     }
 
     logger.debug(`[MarketStorage] operation=addPrice; pair=${pair}; exchange=${exchange}; price=${price}`)
@@ -43,7 +43,7 @@ export class MarketStorage {
 
   sendMarketSnapshot() {
     let market: Market;
-    this.prices.forEach((exchangeMap, pair) => {
+    this.priceStorage.forEach((exchangeMap, pair) => {
       market = this.buildMarketEvent(pair)
       for (const exchange of exchangeMap.keys()) {
         market.exchanges.push(this.buildExchange(exchange, this.getPrice(pair, exchange)));
@@ -71,13 +71,13 @@ export class MarketStorage {
   }
 
   getPrice(pair: Pairs, exchange: ExchangeHouses) : number {
-    return this.prices.get(pair).get(exchange)
+    return this.priceStorage.get(pair).get(exchange)
   }
 
   calculateDiff() {
     this.pairs.forEach( pair => {
       const priceDiff: PriceDiff = this.buildPriceDiff(pair)
-      const houses = Array.from(this.prices.get(pair).keys());
+      const houses = Array.from(this.priceStorage.get(pair).keys());
       for (let i = 0; i < houses.length; i++) {
         for (let j = 0; j < houses.length; j++) {
           if (i !== j) {

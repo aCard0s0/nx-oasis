@@ -26,3 +26,46 @@ export interface KrakenUnsubscribeRequest {
     token?: string
   }
 }
+
+export const KrakenSubTradeRequest: KrakenSubscribeRequest = {
+  event: "subscribe",
+  pair: [
+    "ETH/EUR",
+    "XBT/EUR",
+    "ADA/EUR",
+    "XRP/EUR",
+  ],
+  subscription: {
+    name: "trade"
+  }
+}
+
+export const KrakenSubTickerRequest: KrakenSubscribeRequest = {
+  event: "subscribe",
+  pair: [
+    "ETH/EUR",
+  ],
+  subscription: {
+    name: "ticker"
+  }
+}
+
+export const KrakenSubOHCLRequest: KrakenSubscribeRequest = {
+  event: "subscribe",
+  pair: [
+    "ETH/EUR",
+  ],
+  subscription: {
+    name: "ohlc"
+  }
+}
+
+export const KrakenUnsubTradeRequest: KrakenUnsubscribeRequest = {
+  event: "unsubscribe",
+  pair: [
+    "BTC/EUR",
+  ],
+  subscription: {
+    name: "trade"
+  }
+}

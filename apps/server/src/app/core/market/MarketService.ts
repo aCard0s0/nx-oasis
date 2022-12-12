@@ -36,15 +36,16 @@ export class MarketService {
     }
   }
 
+  publishMarketPriceDifferent(message: PriceDiff) {
+    if (this.sockets.size > 0) {
+      this.send(message)
+    }
+  }
+
   private send(payload: MarketFeed) {
     const data = JSON.stringify(payload)
     this.sockets.get("socketName").send(data)
     logger.debug(`[MarketService] operation=send data=${data}`)
   }
 
-  publishMarketPriceDifferent(message: PriceDiff) {
-    if (this.sockets.size > 0) {
-      this.send(message)
-    }
-  }
 }

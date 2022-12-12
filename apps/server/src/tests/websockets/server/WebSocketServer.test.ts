@@ -1,4 +1,4 @@
-import WebSocketServer from "../../../app/websockets/server/WebSocketServer";
+import WebSocketServer from "../../../app/websockets/server/StartWebSocketServer";
 import express = require("express");
 import {WebSocket} from "ws";
 import {Express} from "express";

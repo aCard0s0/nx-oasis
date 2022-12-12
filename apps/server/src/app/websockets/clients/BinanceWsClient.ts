@@ -22,11 +22,13 @@ export class BinanceWsClient extends WebSocketClientHandler {
     logger.debug(`[BinanceWsClient] operation=onSocketMessage; data=${data}`)
 
     const payload: BinanceMessages = JSON.parse(`${data}`)
+
     switch (payload.e) {
       case "aggTrade": {
         const aggTrade: AggregateTrade = JSON.parse(`${data}`)
-        this.prices.addPrice(
+        this.priceStorage.addPrice(
           PairsConverter.convert(aggTrade.s), ExchangeHouses.Binance, parseFloat(aggTrade.p))
+        this.msgProcessor.incrementBinanceTrade()
         break;
       }
       case "trade": {
@@ -40,6 +42,7 @@ export class BinanceWsClient extends WebSocketClientHandler {
         break;
       }
       default :
+        // Kraken Websocket does not send a subscription success or error message in case that the pair or channel does not exist
         logger.warn(`[BinanceWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }

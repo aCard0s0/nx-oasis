@@ -8,17 +8,15 @@ import {webSocket} from "rxjs/webSocket";
   providedIn: 'root'
 })
 export class MarketFeedService {
-  socket: WebSocketSubject<MarketFeed>
+  socket: WebSocketSubject<MarketFeed> | undefined
   systemNotice$ = new Subject<SystemNotice>()
   marketNotice$ = new Subject<Market>()
   tradeNotice$ = new Subject<Trade>()
   priceDiffNotice$ = new Subject<PriceDiff>()
 
-  constructor() {
-    this.socket = webSocket(`ws://localhost:8080/websockets`)
-  }
-
   connect(name:string) {
+    console.log(`Connecting to ${name} websockets`)
+    this.socket = webSocket(`ws://localhost:8080/websockets?=${name}`)
     this.socket.subscribe(message => this.onMessageFromServer(message))
   }
 

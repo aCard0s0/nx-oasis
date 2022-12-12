@@ -1,13 +1,14 @@
-import {ExchangeManager} from "../exchanges/ExchangeManager";
-import {ExchangeHouses, ExchangeSockets} from "@oasis/share-types";
-import {BinanceWsClient} from "./BinanceWsClient";
+import {ExchangeManager} from "./ExchangeManager";
 import {
   BinanceSubRequest,
   CoinbaseSubTickerRequest,
+  ExchangeHouses,
   KrakenSubTradeRequest
-} from "../../configs/ExchangeRequests";
-import {KrakenWsClient} from "./KrakenWsClient";
-import {CoinbaseWsClient} from "./CoinbaseWsClient";
+} from "@oasis/share-types";
+import {BinanceWsClient} from "../../websockets/clients/BinanceWsClient";
+
+import {KrakenWsClient} from "../../websockets/clients/KrakenWsClient";
+import {CoinbaseWsClient} from "../../websockets/clients/CoinbaseWsClient";
 
 export default async () => {
   const exchanges = new ExchangeManager()

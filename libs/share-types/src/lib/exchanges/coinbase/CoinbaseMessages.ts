@@ -1,4 +1,22 @@
-export type CoinbaseMessages = TickerCb
+
+export type CoinbaseMessages = CBSubscription | ErrorMessageCb| TickerCb
+
+export interface CBSubscription {
+  type: 'subscriptions',
+  channels:[
+    {
+      name: 'ticker',
+      product_ids: string[]
+    }
+  ]
+}
+
+export interface ErrorMessageCb {
+  type: 'error',
+  message: string,
+  reason: string
+}
+
 
 export interface TickerCb {
   type: 'ticker',

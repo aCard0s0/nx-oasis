@@ -1,19 +1,15 @@
 import {RawData, WebSocketServer, WebSocket} from "ws";
 import {IncomingMessage} from "http";
-import {MarketService} from "../../core/service/MarketService";
+import {MarketService} from "../../core/market/MarketService";
 import {WebSocketServerMessages} from "@oasis/share-types";
 import logger from "../../configs/Logger";
 
 export class WebSocketServerHandler {
   private wsServer: WebSocketServer
-  private marketService: MarketService
+  private marketService: MarketService = MarketService.getInstance()
 
   constructor(wsServer: WebSocketServer) {
     this.wsServer = wsServer
-  }
-  initialize() {
-    this.marketService = MarketService.getInstance()
-
     this.wsServer.on('listening', () => this.onSocketListening())
     this.wsServer.on('connection', (socket, request) => this.onSocketConnected(socket, request))
   }

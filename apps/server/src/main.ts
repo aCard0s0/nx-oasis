@@ -1,23 +1,25 @@
 import {Express, Request, Response} from "express"
 import {MarketUpdate} from "./app/cronjob/MarketUpdate";
-import WebSocketServer from "./app/websockets/server/WebSocketServer";
-import WebSocketClient from "./app/websockets/clients/WebSocketClientManager";
+import StartWebSocketServer from "./app/websockets/server/StartWebSocketServer";
+import StartWebSocketClient from "./app/core/exchange/StartWebSocketClient";
 
 import express = require("express");
 import logger from "./app/configs/Logger";
+import {ClientMessagesLogger} from "./app/cronjob/ClientMessagesLogger";
 
 function main() {
   const app: Express = express();
   const port = 8080;
 
   const server = app.listen(port, () => {
+    ClientMessagesLogger.start()
     MarketUpdate.start()
     logger.info(`Server is running at http://localhost:${port}`)
   });
 
-  WebSocketServer(server).then(() => logger.debug(`Websocket Server ready`))
+  StartWebSocketServer(server).then(() => logger.debug(`Websocket Server ready`))
 
-  WebSocketClient().then(exchanges => logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
+  StartWebSocketClient().then(exchanges => logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
 
   app.get('/', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
