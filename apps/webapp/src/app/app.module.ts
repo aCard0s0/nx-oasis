@@ -13,22 +13,31 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MarketPriceComponent } from './components/markets-view/market-panel/market-price.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { TradePanelComponent } from './components/trade-panel/trade-panel.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { PriceDiffComponent } from './components/markets-view/price-diff/price-diff.component';
 import { MarketsViewComponent } from './components/markets-view/markets-view.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BinanceComponent } from './components/binance/binance.component';
+
+const appRoutes: Routes = [
+  { path: '', redirectTo: 'exchanges', pathMatch: 'full' },
+  { path: 'exchanges', component: MarketsViewComponent },
+  { path: 'binance', component: BinanceComponent },
+  //{path: '**', component: NotFoundComponent}    // Has to be the last
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     MarketPriceComponent,
-    TradePanelComponent,
     PriceDiffComponent,
     MarketsViewComponent,
+    BinanceComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
     TooltipModule.forRoot(),
     MatExpansionModule,
     MatInputModule,
