@@ -7,7 +7,7 @@ import {
   BinanceTrade,
   ExchangeHouses,
   ExchangeSockets,
-  MiniTicker,
+  BinanceMiniTicker,
   PairsConverter,
 } from "@oasis/share-types";
 import logger from "../../configs/Logger";
@@ -26,9 +26,9 @@ export class BinanceWsClient extends WebSocketClientHandler {
     switch (payload.e) {
       case "aggTrade": {
         const aggTrade: AggregateTrade = JSON.parse(`${data}`)
-        this.priceStorage.addPrice(
-          PairsConverter.convert(aggTrade.s), ExchangeHouses.Binance, parseFloat(aggTrade.p))
-        this.msgProcessor.incrementBinanceTrade()
+        //this.priceStorage.addPrice(PairsConverter.convert(aggTrade.s), ExchangeHouses.Binance, parseFloat(aggTrade.p))
+        console.log(`[${new Date().toISOString()}] AggTrade: `+ aggTrade.p)
+        this.msgProcessor.incrementBinanceAggTrade()
         break;
       }
       case "trade": {
@@ -37,8 +37,9 @@ export class BinanceWsClient extends WebSocketClientHandler {
         break;
       }
       case "24hrMiniTicker": {
-        const ticker: MiniTicker = JSON.parse(`${data}`)
-        console.log(ticker.c)
+        const ticker: BinanceMiniTicker = JSON.parse(`${data}`)
+        console.log(`[${new Date().toISOString()}] Ticker: ${ticker.c}`)
+        this.msgProcessor.incrementBinanceMiniTicker()
         break;
       }
       default :

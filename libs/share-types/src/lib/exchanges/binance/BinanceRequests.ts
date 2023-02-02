@@ -16,6 +16,7 @@ export const BinanceSubRequest: BinanceSubscribeRequest = {
   method: "SUBSCRIBE",
   params: [
     "etheur@aggTrade",
+    "etheur@miniTicker",
     "btceur@aggTrade",
     "adaeur@aggTrade"
   ],
@@ -26,6 +27,14 @@ export const BinanceUnsubRequest: BinanceUnsubscribeRequest = {
   method: "UNSUBSCRIBE",
   params: [
     "etheur@aggTrade",
+  ],
+  id: 1
+}
+
+export const BinanceAllMarketsSubRequest: BinanceSubscribeRequest = {
+  method: "SUBSCRIBE",
+  params: [
+    '!miniTicker@arr'
   ],
   id: 1
 }

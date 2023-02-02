@@ -2,7 +2,9 @@ import logger from "../../configs/Logger";
 
 export class ClientMessagesProcessor {
   private static instance: ClientMessagesProcessor
-  private binanceTrade: number
+  private binanceAggTrade: number
+  private binanceMiniTicker: number
+  private binanceAllMarketUpdate: number
   private krakenTrade: number
   private coinbaseTrade: number
 
@@ -18,13 +20,15 @@ export class ClientMessagesProcessor {
   }
 
   private reset() {
-    this.binanceTrade = 0
+    this.binanceAggTrade = 0
+    this.binanceMiniTicker = 0
+    this.binanceAllMarketUpdate = 0
     this.krakenTrade = 0
     this.coinbaseTrade = 0
   }
 
-  incrementBinanceTrade() {
-    this.binanceTrade += 1
+  incrementBinanceAggTrade() {
+    this.binanceAggTrade += 1
   }
 
   incrementKrakenTrade() {
@@ -36,7 +40,16 @@ export class ClientMessagesProcessor {
   }
 
   consumedMessagesStatistics() {
-    logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; Binance=${this.binanceTrade}; Kraken=${this.krakenTrade}; Coinbase=${this.coinbaseTrade}`)
+    logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; BinanceAggTrade=${this.binanceAggTrade}; BinanceMiniTicker=${this.binanceMiniTicker}; binanceAllMarketUpdate=${this.binanceAllMarketUpdate}`)
+    logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; Kraken=${this.krakenTrade}; Coinbase=${this.coinbaseTrade}`)
     this.reset()
+  }
+
+  incrementBinanceMiniTicker() {
+    this.binanceMiniTicker++;
+  }
+
+  incrementAllMarketUpdate() {
+    this.binanceAllMarketUpdate++;
   }
 }

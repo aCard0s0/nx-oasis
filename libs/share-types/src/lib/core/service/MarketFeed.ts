@@ -1,7 +1,8 @@
 import {Pairs} from "../../common/Pairs";
 import {ExchangeHouses} from "../../common/ExchangeHouses";
+import {BinanceMiniTicker} from "../../exchanges/binance/BinanceMessages";
 
-export type MarketFeed = Market | PriceDiff | Trade
+export type MarketFeed = Market | PriceDiff | Trade | MarketUpdate
 
 export interface Market {
   event: 'market'
@@ -36,4 +37,9 @@ export interface Trade {
 interface Price {
   amount: number,
   currency: string
+}
+
+export interface MarketUpdate {
+  event: 'binanceAllMarketUpdate'
+  content: BinanceMiniTicker[]
 }

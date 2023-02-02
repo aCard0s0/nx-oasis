@@ -1,4 +1,5 @@
 export * from './lib/exchanges/binance/BinanceMessages';
+export * from './lib/exchanges/binance/BinancePairs';
 export * from './lib/exchanges/binance/BinanceRequests';
 export * from './lib/exchanges/kraken/KrakenMessages';
 export * from './lib/exchanges/kraken/KrakenRequests';

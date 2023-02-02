@@ -1,4 +1,4 @@
-export type BinanceMessages = AggregateTrade | BinanceTrade | MiniTicker | BinanceTicker
+export type BinanceMessages = AggregateTrade | BinanceTrade | BinanceMiniTicker | BinanceTicker
 
 export interface AggregateTrade {
   e: string,    // Event type
@@ -28,7 +28,7 @@ export interface BinanceTrade {
   M: boolean    // Ignore
 }
 
-export interface MiniTicker {
+export interface BinanceMiniTicker {
   e: string,    // Event type
   E: number,    // Event time
   s: string,    // Symbol

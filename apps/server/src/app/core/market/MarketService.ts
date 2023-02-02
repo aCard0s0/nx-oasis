@@ -1,4 +1,4 @@
-import {Market, MarketFeed, PriceDiff} from "@oasis/share-types";
+import {BinanceMiniTicker, Market, MarketFeed, MarketUpdate, PriceDiff} from "@oasis/share-types";
 import {IncomingMessage} from "http";
 import {WebSocket} from "ws";
 import logger from "../../configs/Logger";
@@ -43,4 +43,11 @@ export class MarketService {
     logger.debug(`[MarketService] operation=send data=${data}`)
   }
 
+  forwardBinanceMarketsUpdate(payload: MarketUpdate) {
+    if (this.sockets.has('binance')) {
+      const socket = this.sockets.get('binance');
+      const data = JSON.stringify(payload)
+      socket.send(data)
+    }
+  }
 }
