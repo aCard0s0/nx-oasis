@@ -1,7 +1,7 @@
 import {BinanceMiniTicker, Market, MarketFeed, MarketUpdate, PriceDiff} from "@oasis/share-types";
 import {IncomingMessage} from "http";
 import {WebSocket} from "ws";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class MarketService {
   private static instance: MarketService
@@ -17,12 +17,12 @@ export class MarketService {
   addSocketChannel(socket: WebSocket, request: IncomingMessage) {
     const name = new URL(request.headers.host + request.url).searchParams.get("name")
     this.sockets.set(name, socket)
-    logger.info(`[MarketService] operation=addSocketChannel; websocketName=${name}`)
+    Logger.info(`[MarketService] operation=addSocketChannel; websocketName=${name}`)
   }
 
   removeSocketChannel(socket: WebSocket) {
     this.sockets.delete('socketName')
-    logger.info(`[MarketService] operation=removeSocketChannel; socket=${socket}`)
+    Logger.info(`[MarketService] operation=removeSocketChannel; socket=${socket}`)
   }
 
   publishMarketSnapshot(market: Market) {
@@ -40,7 +40,7 @@ export class MarketService {
   private send(payload: MarketFeed, socket: WebSocket) {
     const data = JSON.stringify(payload)
     socket.send(data)
-    logger.debug(`[MarketService] operation=send data=${data}`)
+    Logger.debug(`[MarketService] operation=send data=${data}`)
   }
 
   forwardBinanceMarketsUpdate(payload: MarketUpdate) {

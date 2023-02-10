@@ -1,4 +1,4 @@
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class ClientMessagesProcessor {
   private static instance: ClientMessagesProcessor
@@ -40,8 +40,8 @@ export class ClientMessagesProcessor {
   }
 
   consumedMessagesStatistics() {
-    logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; BinanceAggTrade=${this.binanceAggTrade}; BinanceMiniTicker=${this.binanceMiniTicker}; binanceAllMarketUpdate=${this.binanceAllMarketUpdate}`)
-    logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; Kraken=${this.krakenTrade}; Coinbase=${this.coinbaseTrade}`)
+    Logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; BinanceAggTrade=${this.binanceAggTrade}; BinanceMiniTicker=${this.binanceMiniTicker}; binanceAllMarketUpdate=${this.binanceAllMarketUpdate}`)
+    Logger.info(`[ClientMessagesProcessor] operation=consumedMessagesStatistics; Kraken=${this.krakenTrade}; Coinbase=${this.coinbaseTrade}`)
     this.reset()
   }
 

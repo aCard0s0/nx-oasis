@@ -16,6 +16,10 @@ export class BinancePairsDetails {
   }
 
   add(pairInfo: BinancePair) {
-    this.binancePairs.add(pairInfo);
+    this.binancePairs.add(pairInfo)
+  }
+
+  size() {
+    return this.binancePairs.size
   }
 }

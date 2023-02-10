@@ -3,7 +3,7 @@ import {
   ExchangeHouses,
   UnsubscribeRequest
 } from "@oasis/share-types";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 import {WebSocket} from "ws";
 
 export class WebsocketManager {
@@ -15,14 +15,14 @@ export class WebsocketManager {
 
   add(house: ExchangeHouses, socket: WebSocketClientHandler) {
     this.exchanges.set(house, socket)
-    logger.info(`[ExchangeManager] operation=add; msg='Socket initialized'; house=${house};`)
+    Logger.info(`[ExchangeManager] operation=add; msg='Socket initialized'; house=${house};`)
   }
 
   get(house: ExchangeHouses) {
     if (!this.exchanges.has(house)) {
-      logger.warn(`[ExchangeManager] operation=get; msg='exchange house doesn't exist'; house=${house};`)
+      Logger.warn(`[ExchangeManager] operation=get; msg='exchange house doesn't exist'; house=${house};`)
     }
-    logger.info(`[ExchangeManager] operation=get; house=${house}; `)
+    Logger.info(`[ExchangeManager] operation=get; house=${house}; `)
     return this.exchanges.get(house)
   }
 
@@ -33,11 +33,11 @@ export class WebsocketManager {
       socket.unsubscribe(request)
       socket.close()
       this.exchanges.delete(house)
-      logger.info(`[ExchangeManager] operation=remove; msg='Socket finalized'; house=${house}`)
+      Logger.info(`[ExchangeManager] operation=remove; msg='Socket finalized'; house=${house}`)
       return socket
     }
 
-    logger.warn(`[ExchangeManager] operation=remove; msg='Socket is not open to be close'; house=${house}`)
+    Logger.warn(`[ExchangeManager] operation=remove; msg='Socket is not open to be close'; house=${house}`)
   }
 
   size() {
@@ -47,7 +47,7 @@ export class WebsocketManager {
   closeAllSockets() {
     this.exchanges.forEach((socket, house) => {
       socket.close()
-      logger.info(`[ExchangeManager] operation=closeAllSockets; msg='Socket finalized'; house=${house}`)
+      Logger.info(`[ExchangeManager] operation=closeAllSockets; msg='Socket finalized'; house=${house}`)
     })
 
     // Second sweep, hard close for everyone who's left

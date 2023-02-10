@@ -3,7 +3,7 @@ import {
   ExchangeSockets, SubscribeRequest, UnsubscribeRequest
 } from "@oasis/share-types";
 import {MarketStorage} from "../../core/market/MarketStorage";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 import {ClientMessagesProcessor} from "../../core/metrics/ClientMessagesProcessor";
 
 export abstract class WebSocketClientHandler {
@@ -23,31 +23,31 @@ export abstract class WebSocketClientHandler {
 
   protected subscribe(request: SubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.debug(`[WebSocketClientHandler] operation=subscribe; request=${req}`)
+    Logger.debug(`[WebSocketClientHandler] operation=subscribe; request=${req}`)
     this.ws.send(req)
   }
 
   unsubscribe(request: UnsubscribeRequest) {
     const req = JSON.stringify(request)
-    logger.debug(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
+    Logger.debug(`[WebSocketClientHandler] operation=unsubscribe; request=${req}`)
     this.ws.send(req)
   }
 
   private onSocketOpen() {
-    logger.debug(`[WebSocketClientHandler] operation=onSocketOpen`)
+    Logger.debug(`[WebSocketClientHandler] operation=onSocketOpen`)
     this.subscribe(this.request)
   }
 
   protected onSocketMessage(data:RawData) {
-    logger.debug(`[WebSocketClientHandler] operation=onSocketMessage; data=${data}`)
+    Logger.debug(`[WebSocketClientHandler] operation=onSocketMessage; data=${data}`)
   }
 
   private onSocketError(error: Error) {
-    logger.error(`[WebSocketClientHandler] operation=onSocketError; name=${error.name}; message=${error.message}`)
+    Logger.error(`[WebSocketClientHandler] operation=onSocketError; name=${error.name}; message=${error.message}`)
   }
 
   private onSocketClose(code: number) {
-    logger.info(`[WebSocketClientHandler] operation=onSocketClose; code=${code}`)
+    Logger.info(`[WebSocketClientHandler] operation=onSocketClose; code=${code}`)
   }
 
   getState() {

@@ -2,7 +2,7 @@ import {RawData, WebSocketServer, WebSocket} from "ws";
 import {IncomingMessage} from "http";
 import {MarketService} from "../../core/market/MarketService";
 import {WebSocketServerMessages} from "@oasis/share-types";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class WebSocketServerHandler {
   private wsServer: WebSocketServer
@@ -20,7 +20,7 @@ export class WebSocketServerHandler {
     })
   }
   onSocketListening() {
-    logger.info(`[WebSocketServerHandler] operation=onSocketListening`)
+    Logger.info(`[WebSocketServerHandler] operation=onSocketListening`)
   }
   onSocketConnected(socket: WebSocket, request: IncomingMessage) {
     this.marketService.addSocketChannel(socket, request)
@@ -30,7 +30,7 @@ export class WebSocketServerHandler {
   }
 
   onSocketMessage(socket: WebSocket, data: RawData) {
-    logger.info(`[WebSocketServerHandler] operation=onSocketMessage; data=${data}`)
+    Logger.info(`[WebSocketServerHandler] operation=onSocketMessage; data=${data}`)
     const payload: WebSocketServerMessages = JSON.parse(`${data}`)
 
     switch (payload.event) {
@@ -45,7 +45,7 @@ export class WebSocketServerHandler {
   }
 
   onSocketClosed(socket: WebSocket, code: number, reason: Buffer) {
-    logger.info(`[WebSocketServerHandler] operation=onSocketClosed; code=${code}, reason=${reason}`)
+    Logger.info(`[WebSocketServerHandler] operation=onSocketClosed; code=${code}, reason=${reason}`)
     this.marketService.removeSocketChannel(socket)
   }
 }

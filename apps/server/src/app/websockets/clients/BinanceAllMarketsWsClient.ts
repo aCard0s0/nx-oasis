@@ -9,7 +9,7 @@ import {
 import {RawData} from "ws";
 import {BinancePriceStorage} from "../../core/market/BinancePriceStorage";
 import {MarketService} from "../../core/market/MarketService";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class BinanceAllMarketsWsClient extends WebSocketClientHandler {
 

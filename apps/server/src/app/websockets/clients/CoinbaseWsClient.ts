@@ -1,6 +1,6 @@
 import {WebSocketClientHandler} from "./WebSocketClientHandler";
 import {RawData} from "ws";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 import {
   CoinbaseMessages,
   CoinbaseSubscribeRequest, ErrorMessageCb, ExchangeHouses,
@@ -14,7 +14,7 @@ export class CoinbaseWsClient extends WebSocketClientHandler {
   }
 
   override onSocketMessage(data: RawData) {
-    logger.debug(`[CoinbaseWsClient] operation=onSocketMessage; data=${data}`)
+    Logger.debug(`[CoinbaseWsClient] operation=onSocketMessage; data=${data}`)
 
     const payload: CoinbaseMessages = JSON.parse(`${data}`)
     switch (payload.type) {
@@ -22,13 +22,13 @@ export class CoinbaseWsClient extends WebSocketClientHandler {
         const subs: CBSubscription = JSON.parse(`${data}`)
         if (subs.channels.length > 0) {
           const channels = JSON.stringify(subs.channels);
-          logger.info(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful' channels=${channels}`)
+          Logger.info(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful' channels=${channels}`)
         }
         break;
       }
       case 'error': {
         const error: ErrorMessageCb = JSON.parse(`${data}`)
-        logger.error(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful'; reason=${error.reason}`)
+        Logger.error(`[CoinbaseWsClient] operation=onSocketMessage; msg='Subscriptions successful'; reason=${error.reason}`)
         break;
       }
       case 'ticker': {
@@ -39,7 +39,7 @@ export class CoinbaseWsClient extends WebSocketClientHandler {
         break;
       }
       default :
-        logger.warn(`[CoinbaseWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
+        Logger.warn(`[CoinbaseWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }
 }

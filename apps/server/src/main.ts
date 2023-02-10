@@ -5,7 +5,7 @@ import StartWebSocketServer from "./app/websockets/server/StartWebSocketServer";
 import StartWebSocketClient from "./app/core/exchange/StartWebSocketClient";
 
 import express = require("express");
-import logger from "./app/configs/Logger";
+import Logger from "./app/configs/Logger";
 import {ClientMessagesLogger} from "./app/cronjob/ClientMessagesLogger";
 
 import {binanceRoute} from "./app/api/BinanceRoutes"; "./app/http/server/BinanceRoutes";
@@ -17,18 +17,14 @@ function main() {
   const server = app.listen(port, () => {
     ClientMessagesLogger.start()
     MarketUpdate.start()
-    logger.info(`Server is running at http://localhost:${port}`)
+    Logger.info(`Server is running at http://localhost:${port}`)
   });
 
-  LoadExchangePairs().then(r => console.log(r))
+  LoadExchangePairs()
 
-  StartWebSocketServer(server).then(() => logger.debug(`Websocket Server ready`))
+  StartWebSocketServer(server).then(() => Logger.debug(`Websocket Server ready`))
 
-  StartWebSocketClient().then(exchanges => logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
-
-  app.get('/', (req: Request, res: Response) => {
-    res.send('Express + TypeScript Server');
-  });
+  StartWebSocketClient().then(exchanges => Logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
 
   app.use('/binance', binanceRoute)
 

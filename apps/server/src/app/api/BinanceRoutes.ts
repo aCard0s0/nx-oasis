@@ -1,9 +1,13 @@
 import { Request, Response} from "express"
 import { Router } from 'express';
+import {binanceCandlestickRoute} from "./binance/BinanceCandlestick";
 export const binanceRoute = Router();
+
+binanceRoute.use(binanceCandlestickRoute);
 
 /*binanceRoute.use((req, res, next) => {
   console.log('Time: ', Date.now())
+  // add motoring metric
   next()
 })*/
 

@@ -5,12 +5,10 @@ import {
   BinanceMessages,
   BinanceSubscribeRequest,
   BinanceTrade,
-  ExchangeHouses,
   ExchangeSockets,
   BinanceMiniTicker,
-  PairsConverter,
 } from "@oasis/share-types";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class BinanceWsClient extends WebSocketClientHandler {
 
@@ -19,7 +17,7 @@ export class BinanceWsClient extends WebSocketClientHandler {
   }
 
   override onSocketMessage(data: RawData) {
-    logger.debug(`[BinanceWsClient] operation=onSocketMessage; data=${data}`)
+    Logger.debug(`[BinanceWsClient] operation=onSocketMessage; data=${data}`)
 
     const payload: BinanceMessages = JSON.parse(`${data}`)
 
@@ -44,7 +42,7 @@ export class BinanceWsClient extends WebSocketClientHandler {
       }
       default :
         // Kraken Websocket does not send a subscription success or error message in case that the pair or channel does not exist
-        logger.warn(`[BinanceWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
+        Logger.warn(`[BinanceWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }
 

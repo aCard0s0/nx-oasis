@@ -2,7 +2,7 @@ import WebSocketServer from "../../../app/websockets/server/StartWebSocketServer
 import express = require("express");
 import {WebSocket} from "ws";
 import {Express} from "express";
-import logger from "../../../app/configs/Logger";
+import Logger from "../../../app/configs/Logger";
 import {waitForSocketState} from "../WebSocketTestUtils";
 
 const port = 8080;
@@ -15,14 +15,14 @@ describe("WebSocket Server", () => {
     const app: Express = express();
     // Start server
     server = app.listen(port, () => {
-      logger.info(`Server is running at http://localhost:${port}`)
+      Logger.info(`Server is running at http://localhost:${port}`)
     });
     await WebSocketServer(server)
   });
   afterAll(() => {
     // Close server
     server.close(() => {
-      logger.info(`Server stop running`)
+      Logger.info(`Server stop running`)
     })
   });
   test("Server echoes the message it receives from client", async () => {

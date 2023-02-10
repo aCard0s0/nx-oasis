@@ -5,7 +5,7 @@ import {
   KrakenSubscribeRequest,
   PairsConverter, krakenSubscription, KrakenMessages, KrakenSystemStatus, KrakenTradeObj
 } from "@oasis/share-types";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class KrakenWsClient extends WebSocketClientHandler {
 
@@ -14,7 +14,7 @@ export class KrakenWsClient extends WebSocketClientHandler {
   }
 
   override onSocketMessage(data: RawData) {
-    logger.debug(`[KrakenWsClient] operation=onSocketMessage; data=${data}`)
+    Logger.debug(`[KrakenWsClient] operation=onSocketMessage; data=${data}`)
 
     // ignore heartbeat messages
     let payload: KrakenMessages = JSON.parse(`${data}`)
@@ -32,13 +32,13 @@ export class KrakenWsClient extends WebSocketClientHandler {
     switch (payload.event) {
       case 'systemStatus': {
         const status: KrakenSystemStatus = JSON.parse(`${data}`)
-        logger.info(`[KrakenWsClient] operation=onSocketMessage; status=${status.status}`)
+        Logger.info(`[KrakenWsClient] operation=onSocketMessage; status=${status.status}`)
         break;
       }
       case 'subscriptionStatus': {
         const subs: krakenSubscription = JSON.parse(`${data}`)
         // Kraken Websocket does not send error message in case that the pair or channel does not exist
-        logger.info(`[KrakenWsClient] operation=onSocketMessage; msg='Subscriptions successful' channels=${subs.subscription.name}; pair=${subs.pair}`)
+        Logger.info(`[KrakenWsClient] operation=onSocketMessage; msg='Subscriptions successful' channels=${subs.subscription.name}; pair=${subs.pair}`)
         break;
       }
       case 'trade': {
@@ -48,7 +48,7 @@ export class KrakenWsClient extends WebSocketClientHandler {
         break;
       }
       default:
-        logger.warn(`[KrakenWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
+        Logger.warn(`[KrakenWsClient] operation=onSocketMessage; msg='event ignored'; data=${data}`)
     }
   }
 }

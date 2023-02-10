@@ -1,6 +1,6 @@
 import {WebSocketServerHandler} from "./WebSocketServerHandler";
 import {WebSocket} from "ws";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export default async (expressServer) => {
   const websocketServer = new WebSocket.Server({
@@ -11,7 +11,7 @@ export default async (expressServer) => {
   const handler = new WebSocketServerHandler(websocketServer)
 
   expressServer.on("upgrade", (request, socket, head) => {
-    logger.debug("Express server upgrading")
+    Logger.debug("Express server upgrading")
     handler.onSocketUpgrading(request, socket, head);
   });
 

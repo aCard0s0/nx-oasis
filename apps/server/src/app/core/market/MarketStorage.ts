@@ -1,6 +1,6 @@
 import {ExchangeHouses, Market, Pairs, PriceDiff} from "@oasis/share-types";
 import {MarketService} from "./MarketService";
-import logger from "../../configs/Logger";
+import Logger from "../../configs/Logger";
 
 export class MarketStorage {
   private static instance: MarketStorage
@@ -24,7 +24,7 @@ export class MarketStorage {
       map.set(exchange, price)
       this.priceStorage.set(pair, map);
     }
-    logger.debug(`[MarketStorage] operation=addPrice; pair=${pair}; exchange=${exchange}; price=${price}`)
+    Logger.debug(`[MarketStorage] operation=addPrice; pair=${pair}; exchange=${exchange}; price=${price}`)
 
     /*  No need forward the trade to FE ?
     this.marketService.publishTrade({

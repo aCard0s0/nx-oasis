@@ -1,3 +1,4 @@
+export * from './lib/exchanges/binance/BinanceAPI';
 export * from './lib/exchanges/binance/BinanceMessages';
 export * from './lib/exchanges/binance/BinancePairs';
 export * from './lib/exchanges/binance/BinanceRequests';
