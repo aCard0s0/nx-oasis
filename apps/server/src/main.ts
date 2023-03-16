@@ -1,4 +1,5 @@
-import {Express, Request, Response} from "express"
+import {Express} from "express"
+import * as cors from 'cors';
 import {MarketUpdate} from "./app/cronjob/MarketUpdate";
 import LoadExchangePairs from "./app/core/exchange/LoadExchangePairs";
 import StartWebSocketServer from "./app/websockets/server/StartWebSocketServer";
@@ -14,19 +15,26 @@ function main() {
   const app: Express = express();
   const port = 8080;
 
+  // If you have more origins you would like to add, you can add them to the array below.
+  const allowedOrigins = ['http://localhost:4200'];
+  const options: cors.CorsOptions = {
+    origin: allowedOrigins
+  };
+
+  app.use(cors(options));
+  app.use('/binance', binanceRoute);
+
   const server = app.listen(port, () => {
     ClientMessagesLogger.start()
     MarketUpdate.start()
     Logger.info(`Server is running at http://localhost:${port}`)
   });
 
-  LoadExchangePairs()
+  LoadExchangePairs();
 
-  StartWebSocketServer(server).then(() => Logger.debug(`Websocket Server ready`))
+  StartWebSocketServer(server).then(() => Logger.debug(`Websocket Server ready`));
 
-  StartWebSocketClient().then(exchanges => Logger.debug(`Subscribed to ${exchanges.size()} Exchanges`))
-
-  app.use('/binance', binanceRoute)
+  StartWebSocketClient().then(exchanges => Logger.debug(`Subscribed to ${exchanges.size()} Exchanges`));
 
 }
 

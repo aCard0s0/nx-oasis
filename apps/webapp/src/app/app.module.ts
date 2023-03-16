@@ -19,10 +19,14 @@ import { MarketsViewComponent } from './components/markets-view/markets-view.com
 import { RouterModule, Routes } from '@angular/router';
 import { BinanceComponent } from './components/binance/binance.component';
 
+import { NgChartsModule } from 'ng2-charts';
+import { TvComponent } from './components/charts/tv/tv.component';
+
 const appRoutes: Routes = [
   { path: '', redirectTo: 'exchanges', pathMatch: 'full' },
   { path: 'exchanges', component: MarketsViewComponent },
   { path: 'binance', component: BinanceComponent },
+  { path: 'tradingview', component: TvComponent },
   //{path: '**', component: NotFoundComponent}    // Has to be the last
 ];
 
@@ -33,6 +37,7 @@ const appRoutes: Routes = [
     PriceDiffComponent,
     MarketsViewComponent,
     BinanceComponent,
+    TvComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatCardModule,
     MatGridListModule,
+    NgChartsModule,
   ],
   providers: [MarketFeedService],
   bootstrap: [AppComponent],
