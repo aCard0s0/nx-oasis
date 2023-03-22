@@ -15,10 +15,9 @@ export interface BinanceUnsubscribeRequest {
 export const BinanceSubRequest: BinanceSubscribeRequest = {
   method: "SUBSCRIBE",
   params: [
-    "etheur@aggTrade",
-    "etheur@miniTicker",
     "btceur@aggTrade",
-    "adaeur@aggTrade"
+    "btceur@trade",
+    "btceur@miniTicker",
   ],
   id: 1
 }

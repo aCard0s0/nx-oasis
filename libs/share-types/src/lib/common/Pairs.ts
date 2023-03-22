@@ -1,9 +1,9 @@
 export enum Pairs {
   UNKNOWN = "unknown",
-  BTC_EUR = 'BTC/EUR',
-  ETH_EUR = 'ETH/EUR',
-  ADA_EUR = 'ADA/EUR',
-  XRP_EUR = 'XRP/EUR',
+  BTC_EUR = 'BTC-EUR',
+  ETH_EUR = 'ETH-EUR',
+  ADA_EUR = 'ADA-EUR',
+  XRP_EUR = 'XRP-EUR',
 }
 
 const UNKNOWN: string[] = []
@@ -23,9 +23,15 @@ export class PairsConverter {
     this.tickerToPair.set(XRP_EUR, Pairs.XRP_EUR)
   }
 
-  static convert(ticker: string): Pairs {
+  static convertToPairEnum(ticker: string): Pairs {
     const possibleFormats: string[] = Array.from(this.tickerToPair.keys())
-      .find(tickers => tickers.some(t => t === ticker)) || [];
+      .find(tickers => tickers.includes(ticker)) || [];
     return this.tickerToPair.get(possibleFormats) || Pairs.UNKNOWN;
+  }
+
+  static getBinanceTicker(pair: string){
+    const possibleFormats: string[] = Array.from(this.tickerToPair.keys())
+      .find(tickers => tickers.some(t => t === pair.toUpperCase())) || [];
+    return possibleFormats[0];
   }
 }

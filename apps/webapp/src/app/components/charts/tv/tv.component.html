@@ -1,3 +1,70 @@
-<p>tv works!</p>
+
+
+
+<label for="exchanges">Exchanges:</label>
+<select id="exchanges" [(ngModel)]="selectedExchange" (ngModelChange)="exchangeChanged()">
+  <option *ngFor="let option of exchanges" [value]="option">{{ option }}</option>
+</select>
+
+<label for="pairs">Pairs:</label>
+<select id="pairs" [(ngModel)]="selectedPair" (ngModelChange)="pairChanged()">
+  <option *ngFor="let option of pairs" [value]="option">{{ option }}</option>
+</select>
+
+<label for="intervals">Intervals:</label>
+<select id="intervals" [(ngModel)]="selectedInterval" (ngModelChange)="intervalChanged()">>
+  <option *ngFor="let option of intervals" [value]="option">{{ option }}</option>
+</select>
 
 <div id="tvchart"></div>
+
+<div class="row" style="border-style: double">
+  <div class="col">
+    <h2>Accounts</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>House</th>
+        <th>Balance</th>
+        <th>Available</th>
+        <th>In Use</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Kraken</td>
+        <td>1234.56 USD</td>
+        <td>1234.56 USD</td>
+        <td>1234.56 USD</td>
+      </tr>
+      <tr>
+        <td>Binance</td>
+        <td>5678.90 USDT</td>
+        <td>1234.56 USD</td>
+        <td>1234.56 USD</td>
+      </tr>
+      <tr>
+        <td>Coinbase</td>
+        <td>2468.10 USD</td>
+        <td>1234.56 USD</td>
+        <td>1234.56 USD</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h2>Orders</h2>
+  </div>
+
+  <div class="col">
+    <h2>Order Details</h2>
+  </div>
+</div>
+
+
+
+
+
+
+

@@ -9,10 +9,9 @@ import {BinanceMiniTicker} from "@oasis/share-types";
 })
 export class BinanceComponent implements OnInit {
 
-  private markets: Map<string, number>;
+  private markets: Map<string, number> = new Map<string, number>();
 
   constructor(private marketFeedService: MarketFeedService) {
-    this.markets = new Map<string, number>();
   }
 
   ngOnInit(): void {

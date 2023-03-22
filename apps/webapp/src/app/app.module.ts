@@ -21,6 +21,10 @@ import { BinanceComponent } from './components/binance/binance.component';
 
 import { NgChartsModule } from 'ng2-charts';
 import { TvComponent } from './components/charts/tv/tv.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {WebSocketService} from "./services/web-socket.service";
+import {MarketOptionsDropdownService} from "./services/market-options-dropdown.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'exchanges', pathMatch: 'full' },
@@ -51,8 +55,14 @@ const appRoutes: Routes = [
     MatCardModule,
     MatGridListModule,
     NgChartsModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [MarketFeedService],
+  providers: [
+    MarketFeedService,
+    WebSocketService,
+    MarketOptionsDropdownService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

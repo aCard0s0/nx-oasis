@@ -9,13 +9,11 @@ export class BinanceHttpClient {
 
   async getBinancePairsDetails() {
     const url = 'https://api.binance.com/api/v3/exchangeInfo'
-    const response = await fetch(url) //.then(data => {return data})
 
     try {
       const data = await fetchData(url);
-      const details = await response.json();
 
-      details.symbols.forEach(pairInfo => {
+      data.symbols.forEach(pairInfo => {
         this.pairsSet.add(pairInfo)
       })
 

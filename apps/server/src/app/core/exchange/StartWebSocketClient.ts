@@ -14,8 +14,8 @@ import {BinanceAllMarketsWsClient} from "../../websockets/clients/BinanceAllMark
 
 export default async () => {
   const exchanges = new WebsocketManager()
-  //exchanges.add(ExchangeHouses.Binance, new BinanceWsClient(BinanceSubRequest))
-  exchanges.add(ExchangeHouses.Binance, new BinanceAllMarketsWsClient(BinanceAllMarketsSubRequest))
+  exchanges.add(ExchangeHouses.Binance, new BinanceWsClient(BinanceSubRequest))
+  //exchanges.add(ExchangeHouses.Binance, new BinanceAllMarketsWsClient(BinanceAllMarketsSubRequest))
   //exchanges.add(ExchangeHouses.Kraken, new KrakenWsClient(KrakenSubTradeRequest))
   //exchanges.add(ExchangeHouses.Coinbase, new CoinbaseWsClient(CoinbaseSubTickerRequest))
 

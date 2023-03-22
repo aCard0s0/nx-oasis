@@ -10,5 +10,7 @@ export * from './lib/exchanges/coinbase/CoinbaseMessages';
 export * from './lib/common/Pairs';
 export * from './lib/common/ExchangeHouses';
 export * from './lib/common/ExchangeSockets';
+export * from './lib/common/Intervals';
+export * from './lib/common/Pairs';
 export * from './lib/websocket/server/WebSocketServerMessages';
 export * from './lib/core/service/MarketFeed';

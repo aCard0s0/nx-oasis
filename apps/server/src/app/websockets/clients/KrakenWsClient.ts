@@ -43,7 +43,7 @@ export class KrakenWsClient extends WebSocketClientHandler {
       }
       case 'trade': {
         this.priceStorage.addPrice(
-          PairsConverter.convert(payload.pair), ExchangeHouses.Kraken, parseFloat(payload.array[0][0]))
+          PairsConverter.convertToPairEnum(payload.pair), ExchangeHouses.Kraken, parseFloat(payload.array[0][0]))
         this.msgProcessor.incrementKrakenTrade()
         break;
       }

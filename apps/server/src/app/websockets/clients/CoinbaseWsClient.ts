@@ -34,7 +34,7 @@ export class CoinbaseWsClient extends WebSocketClientHandler {
       case 'ticker': {
         const ticker: TickerCb = JSON.parse(`${data}`)
         this.priceStorage.addPrice(
-          PairsConverter.convert(ticker.product_id), ExchangeHouses.Coinbase, parseFloat(ticker.price))
+          PairsConverter.convertToPairEnum(ticker.product_id), ExchangeHouses.Coinbase, parseFloat(ticker.price))
         this.msgProcessor.incrementCoinbaseTrade()
         break;
       }
